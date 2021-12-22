@@ -1,0 +1,103 @@
+﻿<Window x:Class="eCollege.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:eCollege"
+        mc:Ignorable="d"
+        Title="Электронный журнал" MinHeight="400" MinWidth="600" Height="400" Width="600" FontFamily="Calibri" FontSize="18">
+    <Window.Resources>
+        <Style x:Key="lkTextBox" TargetType="TextBox">
+            <Setter Property="MinWidth" Value="150"/>
+        </Style>
+        <Style x:Key="lkTextBlock" TargetType="TextBlock">
+            <Setter Property="MinWidth" Value="100"/>
+        </Style>
+        <local:ImageConverter x:Key="ImageConverter"/>
+    </Window.Resources>
+    <Grid Name="mainGrid">
+        <TabControl>
+            <TabItem Header="Личный кабинет">
+                <Grid Name="lkGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="3.2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Фамилия: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding LastName}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Отчество: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Patronymic}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Имя: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding FirstName}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Пол: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Gender}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Группа: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Group.Name}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Курс: "/>
+                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Group.Course}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Grid.Row="1" Grid.Column="2" Stretch="None"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Расписание">
+                <DataGrid Name="mainShedule" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        
+                        <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DataGrid ItemsSource="{Binding Lessons}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Оценка" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DataGrid ItemsSource="{Binding Marks}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="*" Binding="{Binding Mark1}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Оценки">
+
+            </TabItem>
+            <TabItem Header="Класс" Visibility="Collapsed">
+
+            </TabItem>
+            <TabItem Header="Администрирование" Visibility="Collapsed">
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
