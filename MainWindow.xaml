@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Электронный журнал" MinHeight="400" MinWidth="600" Height="400" Width="600" FontFamily="Calibri" FontSize="18">
+        Title="Электронный журнал" MinHeight="400" MinWidth="600" Height="400" Width="600" FontFamily="Calibri" FontSize="16">
     <Window.Resources>
         <Style x:Key="lkTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
@@ -14,6 +14,9 @@
             <Setter Property="MinWidth" Value="100"/>
         </Style>
         <local:ImageConverter x:Key="ImageConverter"/>
+        <local:AllMarksConverter x:Key="AllMarksConverter"/>
+        <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
+        <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Window.Resources>
     <Grid Name="mainGrid">
         <TabControl>
@@ -60,16 +63,28 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Расписание">
-                <DataGrid Name="mainShedule" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid Name="mainSheduleGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
-                        
+
                         <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="*">
+                        <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <DataGrid ItemsSource="{Binding Lessons}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
+                                    <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="Horizontal">
                                         <DataGrid.Columns>
+                                            <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
                                             <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Домашнее задание" Width="2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="*" Binding="{Binding HomeTask}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </DataTemplate>
@@ -78,7 +93,7 @@
                         <DataGridTemplateColumn Header="Оценка" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <DataGrid ItemsSource="{Binding Marks}" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
+                                    <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Width="*" Binding="{Binding Mark1}"/>
                                         </DataGrid.Columns>
@@ -89,10 +104,17 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Header="Оценки">
-
+            <TabItem Header="Итоговые оценки" Name="finalMarks" >
+                <DataGrid Name="finalMarksGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Средний балл" Binding="{Binding Marks, Converter={StaticResource AvgMarksConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Итоговая оценка" Binding="{Binding Marks, Converter={StaticResource FinalMarksConverter}}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
-            <TabItem Header="Класс" Visibility="Collapsed">
+            <TabItem Header="Группа" Visibility="Collapsed">
 
             </TabItem>
             <TabItem Header="Администрирование" Visibility="Collapsed">

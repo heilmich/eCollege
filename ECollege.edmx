@@ -25,6 +25,7 @@
           <Property Name="GroupId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="OrderInShedule" Type="int" Nullable="false" />
+          <Property Name="HomeTask" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -52,8 +53,8 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
           <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Subject">
@@ -72,7 +73,7 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User">
@@ -309,6 +310,7 @@
           <Property Name="GroupId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderInShedule" Type="Int32" Nullable="false" />
+          <Property Name="HomeTask" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Lesson_Group" FromRole="Lesson" ToRole="Group" />
           <NavigationProperty Name="Subject" Relationship="Self.FK_Lesson_Subject" FromRole="Lesson" ToRole="Subject" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Lesson_Teacher" FromRole="Lesson" ToRole="Teacher" />
@@ -343,8 +345,8 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="BirthDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Student_Group" FromRole="Student" ToRole="Group" />
           <NavigationProperty Name="Mark" Relationship="Self.FK_Mark_Student" FromRole="Student" ToRole="Mark" />
@@ -367,7 +369,7 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Group_Teacher" FromRole="Teacher" ToRole="Group" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_Lesson_Teacher" FromRole="Teacher" ToRole="Lesson" />
@@ -608,6 +610,7 @@
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="OrderInShedule" ColumnName="OrderInShedule" />
+                <ScalarProperty Name="HomeTask" ColumnName="HomeTask" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

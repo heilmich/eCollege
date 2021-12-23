@@ -31,23 +31,94 @@ namespace eCollege
         }
     }
 
-    public class MarkConverter : IValueConverter
+    public class AllMarksConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
-            int mark;
-            Lesson lesson = (Lesson)value;
-            using (Entities db = new Entities()) 
+            string str = "";
+            foreach(var mark in (ObservableCollection<Mark>)value) 
             {
-                
+                str += $" {mark.Mark1}";
             }
-                return value;
+            return str;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
             return DependencyProperty.UnsetValue;
         }
     }
+
+    public class AvgMarksConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            if (((ObservableCollection<Mark>)value).Count != 0)
+            {
+                return ((ObservableCollection<Mark>)value).Average(p => p.Mark1);
+            }
+            else return null;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
+    public class FinalMarksConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            if (((ObservableCollection<Mark>)value).Count == 0)
+            {
+                return null;
+            }
+            var avg = ((ObservableCollection<Mark>)value).Average(p => p.Mark1);
+            if (avg >= 0 && avg < 2.5) return 2;
+            else if (avg < 3.5) return 3;
+            else if (avg < 4.5) return 4;
+            else if (avg <= 5) return 5;
+            return null;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
+    public class SubjectMark : INotifyPropertyChanged
+    {
+        private string subjectTitle;
+        private ObservableCollection<Mark> marks;
+
+
+        public string SubjectTitle
+        {
+            get { return subjectTitle; }
+            set
+            {
+                subjectTitle = value;
+                OnPropertyChanged("SubjectTitle");
+            }
+        }
+
+        public ObservableCollection<Mark> Marks
+        {
+            get { return marks; }
+            set
+            {
+                marks = value;
+                OnPropertyChanged("Marks");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+    }
+
 
     public class Day : INotifyPropertyChanged
     {
@@ -115,10 +186,13 @@ namespace eCollege
 
         public List<Lesson> lessonsList = new List<Lesson>();
         public List<Mark> marksList = new List<Mark>();
+        public List<Subject> subjectsList = new List<Subject>();
+
+        public ObservableCollection<SubjectMark> subjectMarks = new ObservableCollection<SubjectMark>();
 
         public ObservableCollection<Day> dayList = new ObservableCollection<Day>();
         public int lessonsPerDay = 8;
-        public DateTime startDay = DateTime.Now;
+        public DateTime startDay = DateTime.Now.AddDays(-1);
         public DateTime endDay = DateTime.Now.AddDays(7);
 
 
@@ -139,10 +213,13 @@ namespace eCollege
             switch (currentUser.TypeId)
             {
                 case 1:
-                    currentStudent = currentUser.Student;
+                    currentStudent = db.Student.Find(currentUser.StudentId);
                     lkGrid.DataContext = currentStudent;
-                    UpdateShedule(currentStudent);
-                    
+                    finalMarks.Visibility = Visibility.Visible;
+                    GetDataStudent(currentStudent);
+                    UpdateSheduleAsync(currentStudent);
+                    UpdateFinalMarksAsync(currentStudent);
+
                     break;
                 case 2:
                     currentTeacher = currentUser.Teacher;
@@ -151,36 +228,62 @@ namespace eCollege
             }
         }
 
-
+        public async void UpdateSheduleAsync(Student student) 
+        {
+            await Task.Run(() => UpdateShedule(student));
+ 
+            mainSheduleGrid.ItemsSource = dayList;
+        }
+        
+        public void GetDataStudent(Student student) 
+        {
+            lessonsList = student.Group.Lesson.ToList();
+            marksList = student.Mark.ToList();
+            subjectsList = student.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
+        }
         public void UpdateShedule(Student student) 
         {
             dayList.Clear();
-            lessonsList = student.Group.Lesson.ToList();
-            marksList = student.Mark.ToList();
+            
             
             for(DateTime i = startDay; i.DayOfYear < endDay.DayOfYear; i = i.AddDays(1)) 
             {
                 Day day = new Day();
+
                 ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear));
+
                 ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
                 foreach (var item in list) 
                 {
-                    listMark.Add(marksList.Where(p => p.LessonId == item.Id).FirstOrDefault());
+                    var it = marksList.Where(p => p.LessonId == item.Id).FirstOrDefault();
+                    if (it == null) it = new Mark();
+                    listMark.Add(it);
                 }
 
-
-                
                 day.MonthDay = Convert.ToString(i.Day);
                 day.Marks = listMark;
                 day.Lessons = list;
                 dayList.Add(day);
             }
-
-            mainShedule.ItemsSource = dayList;
         }
 
-        
+        public async void UpdateFinalMarksAsync(Student student)
+        {
+            await Task.Run(() => UpdateFinalMarks(student));
+            
+            finalMarksGrid.ItemsSource = subjectMarks;
+        }
+        public void UpdateFinalMarks(Student student) 
+        {
+            subjectMarks.Clear();
 
-
+            foreach(var item in subjectsList) 
+            {
+                SubjectMark sm = new SubjectMark();
+                sm.SubjectTitle = item.Title;
+                sm.Marks = new ObservableCollection<Mark>(currentStudent.Mark.Where( p => p.Lesson.Subject == item));
+                subjectMarks.Add(sm);
+            }
+        }
     }
 }
