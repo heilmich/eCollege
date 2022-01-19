@@ -18,108 +18,28 @@
         <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
         <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Window.Resources>
-    <Grid Name="mainGrid">
-        <TabControl>
-            <TabItem Header="Личный кабинет">
-                <Grid Name="lkGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="3.2*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Фамилия: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding LastName}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Отчество: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Patronymic}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Имя: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding FirstName}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Пол: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Gender}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Группа: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Group.Name}"></TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Курс: "/>
-                            <TextBlock Style="{StaticResource lkTextBlock}" Text="{Binding Group.Course}"></TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Grid.Row="1" Grid.Column="2" Stretch="None"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Расписание">
-                <DataGrid Name="mainSheduleGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-                    <DataGrid.Columns>
+    <Grid Name="mainGrid" Background="#FFC6EFE3" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="Расписание" Name="tbShedule" MouseLeftButtonUp="Click_Shedule" />
+            <TextBlock Text="Оценки" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
+        </StackPanel>
+        <Image Source="profile.png" Height="30" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" MouseLeftButtonUp="Click_Profile"/>
+        <Frame Name="mainFrame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3">
 
-                        <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="Horizontal">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
-                                            <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Домашнее задание" Width="2*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Width="*" Binding="{Binding HomeTask}"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Оценка" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Width="*" Binding="{Binding Mark1}"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Итоговые оценки" Name="finalMarks" >
-                <DataGrid Name="finalMarksGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Средний балл" Binding="{Binding Marks, Converter={StaticResource AvgMarksConverter}}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Итоговая оценка" Binding="{Binding Marks, Converter={StaticResource FinalMarksConverter}}"></DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-            <TabItem Header="Группа" Visibility="Collapsed">
-
-            </TabItem>
-            <TabItem Header="Администрирование" Visibility="Collapsed">
-
-            </TabItem>
-        </TabControl>
+        </Frame>
     </Grid>
 </Window>

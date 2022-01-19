@@ -181,31 +181,29 @@ namespace eCollege
     /// 
     public partial class MainWindow : Window
     {
-
         public static Entities db = new Entities();
 
-        public List<Lesson> lessonsList = new List<Lesson>();
-        public List<Mark> marksList = new List<Mark>();
-        public List<Subject> subjectsList = new List<Subject>();
+        public static List<Mark> marksList = new List<Mark>();
+        public static List<Lesson> lessonsList = new List<Lesson>();
+        public static List<Subject> subjectsList = new List<Subject>();
+        public static ObservableCollection<SubjectMark> subjectMarks = new ObservableCollection<SubjectMark>();
 
-        public ObservableCollection<SubjectMark> subjectMarks = new ObservableCollection<SubjectMark>();
-
-        public ObservableCollection<Day> dayList = new ObservableCollection<Day>();
-        public int lessonsPerDay = 8;
-        public DateTime startDay = DateTime.Now.AddDays(-1);
-        public DateTime endDay = DateTime.Now.AddDays(7);
+        public static StudentProfilePage studentProfilePage;
+        public static TeacherProfilePage teacherProfilePage;
+        public static ShedulePage shedulePage;
+        public static MarksPage marksPage;
 
 
-        public User currentUser;
-        public Student currentStudent;
-        public Teacher currentTeacher;
+        public static User currentUser;
+        public static Student currentStudent;
+        public static Teacher currentTeacher;
 
         public MainWindow(User user)
         {
-            
             currentUser = db.User.Find(user.Id);
-            InitializeComponent();
             SwitchUser();
+            InitializeComponent();
+            NavigateProfile();
         }
 
         public void SwitchUser()
@@ -213,77 +211,58 @@ namespace eCollege
             switch (currentUser.TypeId)
             {
                 case 1:
-                    currentStudent = db.Student.Find(currentUser.StudentId);
-                    lkGrid.DataContext = currentStudent;
-                    finalMarks.Visibility = Visibility.Visible;
-                    GetDataStudent(currentStudent);
-                    UpdateSheduleAsync(currentStudent);
-                    UpdateFinalMarksAsync(currentStudent);
+                    GetDataStudent();
+                    studentProfilePage = new StudentProfilePage();
+                    shedulePage = new ShedulePage();
+                    //tbShedule.Visibility = Visibility.Visible;
+                    marksPage = new MarksPage();
+                    //tbMarks.Visibility = Visibility.Visible;
 
                     break;
                 case 2:
                     currentTeacher = currentUser.Teacher;
-                    lkGrid.DataContext = currentTeacher;
+                    teacherProfilePage = new TeacherProfilePage();
                     break;
             }
         }
 
-        public async void UpdateSheduleAsync(Student student) 
+        public void NavigateProfile() 
         {
-            await Task.Run(() => UpdateShedule(student));
- 
-            mainSheduleGrid.ItemsSource = dayList;
+            GetDataStudent();
+            switch (currentUser.TypeId)
+            {
+                case 1:
+                    mainFrame.Navigate(studentProfilePage);
+                    break;
+                case 2:
+                    mainFrame.Navigate(teacherProfilePage);
+                    break;
+            }
         }
+
         
-        public void GetDataStudent(Student student) 
+        public void GetDataStudent() 
         {
-            lessonsList = student.Group.Lesson.ToList();
-            marksList = student.Mark.ToList();
-            subjectsList = student.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
-        }
-        public void UpdateShedule(Student student) 
-        {
-            dayList.Clear();
-            
-            
-            for(DateTime i = startDay; i.DayOfYear < endDay.DayOfYear; i = i.AddDays(1)) 
-            {
-                Day day = new Day();
-
-                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear));
-
-                ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
-                foreach (var item in list) 
-                {
-                    var it = marksList.Where(p => p.LessonId == item.Id).FirstOrDefault();
-                    if (it == null) it = new Mark();
-                    listMark.Add(it);
-                }
-
-                day.MonthDay = Convert.ToString(i.Day);
-                day.Marks = listMark;
-                day.Lessons = list;
-                dayList.Add(day);
-            }
+            currentStudent = db.Student.Find(currentUser.StudentId);
+            lessonsList = currentStudent.Group.Lesson.ToList();
+            marksList = currentStudent.Mark.ToList();
+            subjectsList = currentStudent.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
         }
 
-        public async void UpdateFinalMarksAsync(Student student)
+        private void Click_Profile(object sender, MouseButtonEventArgs e)
         {
-            await Task.Run(() => UpdateFinalMarks(student));
-            
-            finalMarksGrid.ItemsSource = subjectMarks;
+            NavigateProfile();
         }
-        public void UpdateFinalMarks(Student student) 
-        {
-            subjectMarks.Clear();
 
-            foreach(var item in subjectsList) 
-            {
-                SubjectMark sm = new SubjectMark();
-                sm.SubjectTitle = item.Title;
-                sm.Marks = new ObservableCollection<Mark>(currentStudent.Mark.Where( p => p.Lesson.Subject == item));
-                subjectMarks.Add(sm);
-            }
+
+        private void Click_Shedule(object sender, MouseButtonEventArgs e)
+        {
+            mainFrame.Navigate(shedulePage);
+        }
+
+        private void Click_Marks(object sender, MouseButtonEventArgs e)
+        {
+            mainFrame.Navigate(marksPage);
         }
     }
 }
