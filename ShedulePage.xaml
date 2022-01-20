@@ -6,10 +6,27 @@
       xmlns:local="clr-namespace:eCollege"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ShedulePage">
+      Title="ShedulePage"
+      FontSize="14">
 
     <Grid>
-        <DataGrid Name="mainSheduleGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center" KeyDown="KeyDown_SheduleDateSearch" >
+            <TextBlock Text="Показать оценки с "/>
+            <TextBox  Name="tbStartDay" MinWidth="50" MinHeight="20"/>
+            <TextBlock Text=" по "/>
+            <TextBox Name="tbEndDay" MinWidth="50" MinHeight="20"/>
+        </StackPanel>
+        <DataGrid Name="mainSheduleGrid" Grid.Row="1" Grid.ColumnSpan="3" FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>

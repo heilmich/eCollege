@@ -13,7 +13,7 @@
         <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Page.Resources>
     <Grid>
-        <DataGrid Name="finalMarksGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid Name="finalMarksGrid" FontSize="16" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>

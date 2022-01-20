@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,11 +26,24 @@ namespace eCollege
         public int lessonsPerDay = 8;
         public DateTime startDay = DateTime.Now.AddDays(-1);
         public DateTime endDay = DateTime.Now.AddDays(7);
-
+        public static bool isKeyDown = false;
         public ShedulePage()
         {
             InitializeComponent();
+            SetBindings();
             UpdateSheduleAsync();
+        }
+
+        public void SetBindings() 
+        {
+            Binding bindStartDay = new Binding();
+            bindStartDay.Source = startDay;
+            bindStartDay.Mode = BindingMode.TwoWay;
+            bindStartDay.ElementName = tbStartDay.Text;
+            Binding bindEndDay = new Binding();
+            bindEndDay.Source = endDay;
+            bindEndDay.Mode = BindingMode.TwoWay;
+            bindEndDay.ElementName = tbEndDay.Text;
         }
 
         public void GetDataStudent(Student student)
@@ -70,6 +84,22 @@ namespace eCollege
                 day.Lessons = list;
                 dayList.Add(day);
             }
+        }
+
+        private void KeyDown_SheduleDateSearch(object sender, KeyEventArgs e)
+        {
+            isKeyDown = true;
+            Thread.Sleep(1000);
+            if (isKeyDown == true)
+            {
+                isKeyDown=false;
+                startDay = Convert.ToDateTime(tbStartDay.Text);
+                endDay = Convert.ToDateTime(tbEndDay.Text);
+                UpdateSheduleAsync();
+            }
+
+            else isKeyDown = false;
+            
         }
     }
 }
