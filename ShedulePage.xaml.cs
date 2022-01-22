@@ -24,26 +24,27 @@ namespace eCollege
     {
         public ObservableCollection<Day> dayList = new ObservableCollection<Day>();
         public int lessonsPerDay = 8;
-        public DateTime startDay = DateTime.Now.AddDays(-1);
-        public DateTime endDay = DateTime.Now.AddDays(7);
+        public DateTime startDay = DateTime.Today;
+        public DateTime endDay;
         public static bool isKeyDown = false;
         public ShedulePage()
         {
             InitializeComponent();
-            SetBindings();
+            SetWeek();
             UpdateSheduleAsync();
         }
 
-        public void SetBindings() 
+
+        public void SetWeek() 
         {
-            Binding bindStartDay = new Binding();
-            bindStartDay.Source = startDay;
-            bindStartDay.Mode = BindingMode.TwoWay;
-            bindStartDay.ElementName = tbStartDay.Text;
-            Binding bindEndDay = new Binding();
-            bindEndDay.Source = endDay;
-            bindEndDay.Mode = BindingMode.TwoWay;
-            bindEndDay.ElementName = tbEndDay.Text;
+            while(startDay.DayOfWeek != DayOfWeek.Monday) 
+            {
+                startDay = startDay.AddDays(-1);
+            }
+            endDay = startDay.AddDays(7);
+            rStartDay.Text = startDay.ToShortDateString();
+            rEndDay.Text = endDay.Date.ToShortDateString();
+
         }
 
         public void GetDataStudent(Student student)
@@ -86,20 +87,18 @@ namespace eCollege
             }
         }
 
-        private void KeyDown_SheduleDateSearch(object sender, KeyEventArgs e)
+        private void Click_PreviousWeek(object sender, MouseButtonEventArgs e)
         {
-            isKeyDown = true;
-            Thread.Sleep(1000);
-            if (isKeyDown == true)
-            {
-                isKeyDown=false;
-                startDay = Convert.ToDateTime(tbStartDay.Text);
-                endDay = Convert.ToDateTime(tbEndDay.Text);
-                UpdateSheduleAsync();
-            }
+            startDay = startDay.AddDays(-7);
+            SetWeek();
+            UpdateShedule();
+        }
 
-            else isKeyDown = false;
-            
+        private void Click_NextWeek(object sender, MouseButtonEventArgs e)
+        {
+            startDay = startDay.AddDays(7);
+            SetWeek();
+            UpdateShedule();
         }
     }
 }

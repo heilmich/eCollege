@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Электронный журнал" MinHeight="600" MinWidth="800" Height="600" Width="800" FontFamily="Calibri" FontSize="16" Foreground="White">
+        Title="Электронный журнал" MinHeight="600" MinWidth="1024" Height="600" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White">
     <Window.Resources>
         <Style x:Key="lkTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
@@ -18,40 +18,47 @@
         <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
         <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Window.Resources>
+    
     <Window.Background>
-        <SolidColorBrush Color="#FF292929"/>
+        <SolidColorBrush Color="#E6E7E9"/>
     </Window.Background>
+    
     <Grid Name="mainGrid">
+        
         <Grid.Background>
-            <ImageBrush ImageSource="/background.png"/>
+            <ImageBrush ImageSource="/background.png" Stretch="UniformToFill" TileMode="FlipXY"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1.4*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition MinHeight="55" Height="0.27*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FF292929">
 
-            <TextBlock Text="Расписание" Name="tbShedule" MouseLeftButtonUp="Click_Shedule" />
-            <TextBlock Text="Оценки" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
+        <Border BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="0" Grid.ColumnSpan="5" Background="#0072BC">
+            
+        </Border>
+        
+        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" MouseLeftButtonUp="Click_Shedule" />
+            <TextBlock Text="Оценки" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
+            <TextBlock Text="Группа" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbGroup" Margin="15,0,0,0" />
         </StackPanel>
-        <Border  Background="#FF292929" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Padding="0,10">
+        
+        <Border  Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Padding="10,10" CornerRadius="50">
             <Image Source="profile.png"  MinHeight="25" MouseLeftButtonUp="Click_Profile"/>
-
         </Border>
-        <Border Background="White" CornerRadius="15" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Padding="10">
-            <Frame Name="mainFrame"  NavigationUIVisibility="Hidden" >
 
-            </Frame>
-        </Border>
+        <Frame Grid.Column="1"   Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Name="mainFrame" NavigationUIVisibility="Hidden" >
+        </Frame>
+
     </Grid>
 </Window>

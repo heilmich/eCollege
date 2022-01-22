@@ -48,6 +48,20 @@ namespace eCollege
         }
     }
 
+    public class MarkConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            if ((int)value == 0)
+                return "нет оценки";
+            else return value;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
     public class AvgMarksConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)

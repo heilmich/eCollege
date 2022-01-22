@@ -8,63 +8,71 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ShedulePage"
       FontSize="14">
+    <Page.Resources>
+        <local:MarkConverter x:Key="MarkConverter"/>
+    </Page.Resources>
+    <Border BorderBrush="Gray" BorderThickness="0.8">
+        <Grid  Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Center">
+                <Label Content="Предыдущая неделя" MouseLeftButtonUp="Click_PreviousWeek" />
+                <Label Content="Следующая неделя" MouseLeftButtonUp="Click_NextWeek" />
+                <TextBlock VerticalAlignment="Center" Margin="20,0,0,0">
+                    <Run Text="Показаны оценки с"/>
+                    <Run Name="rStartDay" Foreground="#FC777777"/>
+                    <Run Text="по"/>
+                    <Run Name="rEndDay" Foreground="#FC777777"/>
+                </TextBlock>
+            </StackPanel>
+            <DataGrid Name="mainSheduleGrid" Grid.Row="1" Grid.Column="1"  FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center" KeyDown="KeyDown_SheduleDateSearch" >
-            <TextBlock Text="Показать оценки с "/>
-            <TextBox  Name="tbStartDay" MinWidth="50" MinHeight="20"/>
-            <TextBlock Text=" по "/>
-            <TextBox Name="tbEndDay" MinWidth="50" MinHeight="20"/>
-        </StackPanel>
-        <DataGrid Name="mainSheduleGrid" Grid.Row="1" Grid.ColumnSpan="3" FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
-            <DataGrid.Columns>
-
-                <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="Horizontal">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
-                                    <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Домашнее задание" Width="2*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Binding="{Binding HomeTask}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Оценка" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Binding="{Binding Mark1}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
+                                        <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Домашнее задание" Width="2*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*" Binding="{Binding HomeTask}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Оценка" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*" Binding="{Binding Mark1,Converter={StaticResource MarkConverter}}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
 </Page>

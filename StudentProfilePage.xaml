@@ -6,54 +6,71 @@
       xmlns:local="clr-namespace:eCollege"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StudentProfilePage">
+      Title="StudentProfilePage" FontSize="18">
     <Page.Resources>
         <Style x:Key="lTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
         </Style>
         <Style x:Key="lTextBlock" TargetType="TextBlock">
             <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Foreground" Value="#FF4C4B4B"/>
         </Style>
         <local:ImageConverter x:Key="ImageConverter"/>
     </Page.Resources>
-    <Grid Name="lkGrid" DataContext="{Binding Student}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="3.2*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
-            <TextBlock >
-                    <Run Text="Фамилия: "/>
-                    <Run Text="{Binding LastName}"/>
-            </TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Отчество: "/>
-                <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Имя: "/>
-                <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding FirstName}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Пол: "/>
-                <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Gender}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Группа: "/>
-                <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Name}"></TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Курс: "/>
-                <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Course}"></TextBlock>
-            </StackPanel>
-        </StackPanel>
-        <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Grid.Row="1" Grid.Column="2" Stretch="None"/>
-    </Grid>
+    <Border>
+        <Grid Name="lkGrid" DataContext="{Binding Student}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="14"/>
+                <RowDefinition />
+                <RowDefinition Height="14"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="1" Background="White">
+                <StackPanel>
+                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}"/>
+                    <TextBlock Text="{Binding Student.User.UserType.Title}"/>
+                </StackPanel>
+
+            </Border>
+            <Border Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+                <StackPanel  HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Фамилия: "/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding LastName}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Отчество: "/>
+                        <TextBlock  Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Имя: "/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding FirstName}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Пол: "/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Gender}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Группа: "/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Name}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Курс: "/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Course}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+                
+
+            </Border>
+        </Grid>
+    </Border>
 </Page>
