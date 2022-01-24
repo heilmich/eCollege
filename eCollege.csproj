@@ -68,32 +68,32 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Authorization.cs" />
-    <Compile Include="ECollege.Context.cs">
+    <Compile Include="DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECollege.Context.tt</DependentUpon>
+      <DependentUpon>DBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ECollege.cs">
+    <Compile Include="DBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ECollege.Designer.cs">
+    <Compile Include="DBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECollege.edmx</DependentUpon>
+      <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Group.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Lesson.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mark.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MarksPage.xaml.cs">
       <DependentUpon>MarksPage.xaml</DependentUpon>
@@ -102,28 +102,28 @@
       <DependentUpon>ShedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Specialty.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Student.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentProfilePage.xaml.cs">
       <DependentUpon>StudentProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Subject.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TeacherProfilePage.xaml.cs">
       <DependentUpon>TeacherProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserType.cs">
-      <DependentUpon>ECollege.tt</DependentUpon>
+      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Page Include="LoginDialog.xaml">
       <SubType>Designer</SubType>
@@ -176,12 +176,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="ECollege.edmx">
+    <EntityDeploy Include="DBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ECollege.Designer.cs</LastGenOutput>
+      <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="ECollege.edmx.diagram">
-      <DependentUpon>ECollege.edmx</DependentUpon>
+    <None Include="DBModel.edmx.diagram">
+      <DependentUpon>DBModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -197,17 +197,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="background.png" />
-    <Content Include="ECollege.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ECollege.edmx</DependentUpon>
-      <LastGenOutput>ECollege.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ECollege.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ECollege.edmx</DependentUpon>
-      <LastGenOutput>ECollege.cs</LastGenOutput>
-    </Content>
     <Resource Include="profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBModel.edmx</DependentUpon>
+      <LastGenOutput>DBModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

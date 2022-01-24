@@ -12,6 +12,9 @@
         <local:MarkConverter x:Key="MarkConverter"/>
     </Page.Resources>
     <Border BorderBrush="Gray" BorderThickness="0.8">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+        </Border.Effect>
         <Grid  Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>

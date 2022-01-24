@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bace9087cac84f5d9cd8278a4f3d3922" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.Group" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Lesson" Width="1.5" PointX="9.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Mark" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Specialty" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Subject" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Teacher" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.User" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.UserType" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="DBModel.FK_Group_Specialty" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Group_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Lesson_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Student_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Lesson_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Lesson_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Mark_Lesson" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Mark_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Student_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_Teacher_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.FK_User_UserType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

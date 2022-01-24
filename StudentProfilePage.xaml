@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:eCollege"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StudentProfilePage" FontSize="18">
+      Title="StudentProfilePage" FontSize="18" FontFamily="Segoe UI">
     <Page.Resources>
         <Style x:Key="lTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
@@ -16,6 +16,7 @@
             <Setter Property="Foreground" Value="#FF4C4B4B"/>
         </Style>
         <local:ImageConverter x:Key="ImageConverter"/>
+        
     </Page.Resources>
     <Border>
         <Grid Name="lkGrid" DataContext="{Binding Student}">
@@ -32,44 +33,79 @@
                 <RowDefinition />
                 <RowDefinition Height="14"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="1" Background="White">
-                <StackPanel>
-                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}"/>
-                    <TextBlock Text="{Binding Student.User.UserType.Title}"/>
-                </StackPanel>
-
+            <Border MinHeight="250" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="1" Background="White">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="80"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Height="90"/>
+                    <StackPanel VerticalAlignment="Top" Grid.Row="1">
+                        <TextBlock Text="{Binding User.UserType.Title}" HorizontalAlignment="Center" Margin="0,0,0,10" FontWeight="Medium"/>
+                        <TextBlock FontSize="15" TextWrapping="Wrap" Margin="0,0,0,5">
+                            <Run Text="Дата регистрации: "/>
+                            <Run FontWeight="Light" Text="{Binding User.RegDate}"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" TextWrapping="Wrap" Margin="0,0,0,5">
+                            <Run Text="Дата последнего входа: "/>
+                            <Run FontWeight="Light" Text="{Binding User.LoginDate}"/>
+                        </TextBlock>
+                        
+                    </StackPanel>
+                    <Label Content="Редактировать фото" VerticalAlignment="Bottom" FontSize="15" MinHeight="20" Grid.Row="2"/>
+                </Grid>
             </Border>
-            <Border Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
-                <StackPanel  HorizontalAlignment="Left">
-                    <StackPanel Orientation="Horizontal" >
+            <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+                </Border.Effect>
+                <StackPanel  HorizontalAlignment="Stretch">
+                    <TextBlock Text="Личные данные" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
                         <TextBlock Text="Фамилия: "/>
-                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding LastName}"/>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding LastName}" FontWeight="Light"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Отчество: "/>
-                        <TextBlock  Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}"></TextBlock>
+                        <TextBlock  Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}" FontWeight="Light"></TextBlock>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Имя: "/>
-                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding FirstName}"></TextBlock>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding FirstName}" FontWeight="Light"></TextBlock>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Пол: "/>
-                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Gender}"></TextBlock>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Gender}" FontWeight="Light"></TextBlock>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Группа: "/>
-                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Name}"></TextBlock>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Name}" FontWeight="Light"></TextBlock>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Курс: "/>
-                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Course}"></TextBlock>
+                        <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding Group.Course}" FontWeight="Light"></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
-                
-
+            <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+                </Border.Effect>
+                <StackPanel>
+                    <Label HorizontalAlignment="Center" Content="Оценки"/>
+                    <TextBlock TextWrapping="Wrap" Name="tipLabel" FontSize="15" HorizontalAlignment="Stretch" Margin="0,15,0,10"></TextBlock>
+                    <ListBox Name="lbMarks">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label FontSize="14" Content="{Binding Title}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
             </Border>
         </Grid>
     </Border>

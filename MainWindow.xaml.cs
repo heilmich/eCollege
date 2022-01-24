@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace eCollege
 {
@@ -92,6 +93,18 @@ namespace eCollege
             else if (avg < 4.5) return 4;
             else if (avg <= 5) return 5;
             return null;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+    }
+
+    public class UserTypeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return ((User)value); //допилить
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
@@ -234,7 +247,7 @@ namespace eCollege
 
                     break;
                 case 2:
-                    currentTeacher = currentUser.Teacher;
+                    currentTeacher = currentUser.Teacher.First();
                     teacherProfilePage = new TeacherProfilePage();
                     break;
             }
@@ -257,7 +270,7 @@ namespace eCollege
         
         public void GetDataStudent() 
         {
-            currentStudent = db.Student.Find(currentUser.StudentId);
+            currentStudent = currentUser.Student.First();
             lessonsList = currentStudent.Group.Lesson.ToList();
             marksList = currentStudent.Mark.ToList();
             subjectsList = currentStudent.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
@@ -277,6 +290,11 @@ namespace eCollege
         private void Click_Marks(object sender, MouseButtonEventArgs e)
         {
             mainFrame.Navigate(marksPage);
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/heilmich/eCollege");
         }
     }
 }
