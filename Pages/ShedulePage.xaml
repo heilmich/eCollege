@@ -9,7 +9,12 @@
       Title="ShedulePage"
       FontSize="14">
     <Page.Resources>
+        <Style x:Key="Link" TargetType="Label">
+            <Setter Property="Foreground" Value="#1d4ade"/>
+        </Style>
         <local:MarkConverter x:Key="MarkConverter"/>
+        <local:HomeTaskConverter x:Key="HomeTaskConverter"/>
+        <local:TeacherFIOConverter x:Key="TeacherFIOConverter"/>
     </Page.Resources>
     <Border BorderBrush="Gray" BorderThickness="0.8">
         <Border.Effect>
@@ -27,10 +32,10 @@
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Center">
-                <Label Content="Предыдущая неделя" MouseLeftButtonUp="Click_PreviousWeek" />
-                <Label Content="Следующая неделя" MouseLeftButtonUp="Click_NextWeek" />
+                <Label Content="Предыдущая неделя" Style="{DynamicResource Link}"  MouseLeftButtonUp="Click_PreviousWeek" />
+                <Label Content="Следующая неделя" Style="{DynamicResource Link}" MouseLeftButtonUp="Click_NextWeek" />
                 <TextBlock VerticalAlignment="Center" Margin="20,0,0,0">
-                    <Run Text="Показаны оценки с"/>
+                    <Run Text="Показано расписание с"/>
                     <Run Name="rStartDay" Foreground="#FC777777"/>
                     <Run Text="по"/>
                     <Run Name="rEndDay" Foreground="#FC777777"/>
@@ -39,7 +44,7 @@
             <DataGrid Name="mainSheduleGrid" Grid.Row="1" Grid.Column="1"  FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Дата" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата" Width="50" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -52,23 +57,34 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Домашнее задание" Width="2*">
+                    <DataGridTemplateColumn Header="Домашнее задание" x:Name="dgHomeTask" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Width="*" Binding="{Binding HomeTask}"/>
+                                        <DataGridTextColumn Width="*" Binding="{Binding HomeTask, Converter={StaticResource HomeTaskConverter}}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Оценка" Width="*">
+                    <DataGridTemplateColumn Header="Оценка" x:Name="dgMark" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*" Binding="{Binding Mark1,Converter={StaticResource MarkConverter}}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Преподаватель" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*" Binding="{Binding Teacher,Converter={StaticResource TeacherFIOConverter}}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>

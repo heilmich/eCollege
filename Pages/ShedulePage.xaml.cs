@@ -22,16 +22,22 @@ namespace eCollege
     /// </summary>
     public partial class ShedulePage : Page
     {
-        public ObservableCollection<Day> dayList = new ObservableCollection<Day>();
+        public ObservableCollection<SchoolDay> dayList = new ObservableCollection<SchoolDay>();
         public int lessonsPerDay = 8;
         public DateTime startDay = DateTime.Today;
         public DateTime endDay;
         public static bool isKeyDown = false;
+
         public ShedulePage()
         {
             InitializeComponent();
             SetWeek();
             UpdateSheduleAsync();
+            if(MainWindow.currentUser.TypeId == 2) 
+            {
+                dgHomeTask.Visibility = Visibility.Collapsed;
+                dgMark.Visibility = Visibility.Collapsed;
+            }
         }
 
 
@@ -47,12 +53,6 @@ namespace eCollege
 
         }
 
-        public void GetDataStudent(Student student)
-        {
-            MainWindow.lessonsList = student.Group.Lesson.ToList();
-            MainWindow.marksList = student.Mark.ToList();
-            MainWindow.subjectsList = student.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
-        }
 
         public async void UpdateSheduleAsync()
         {
@@ -68,7 +68,7 @@ namespace eCollege
 
             for (DateTime i = startDay; i.DayOfYear < endDay.DayOfYear; i = i.AddDays(1))
             {
-                Day day = new Day();
+                SchoolDay day = new SchoolDay();
 
                 ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(MainWindow.lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear));
 
@@ -80,7 +80,7 @@ namespace eCollege
                     listMark.Add(it);
                 }
 
-                day.MonthDay = Convert.ToString(i.Day);
+                day.Date = i.Date;
                 day.Marks = listMark;
                 day.Lessons = list;
                 dayList.Add(day);

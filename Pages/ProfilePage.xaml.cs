@@ -14,18 +14,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace eCollege
 {
     /// <summary>
     /// Логика взаимодействия для StudentProfilePage.xaml
     /// </summary>
-    public partial class StudentProfilePage : Page
+    public partial class ProfilePage : Page
     {
         ObservableCollection<Subject> subjectList;
-        public StudentProfilePage()
+        User thisUser = new User();
+        public ProfilePage()
         {
             InitializeComponent();
-            lkGrid.DataContext = MainWindow.currentStudent;
+            if (MainWindow.currentUser.TypeId == 1) 
+            {
+                lkGrid.DataContext = MainWindow.currentUser.Student;
+            }
+            else if (MainWindow.currentUser.TypeId == 2) 
+            {
+                lkGrid.DataContext = MainWindow.currentUser.Teacher;
+                marksCol.Width = new GridLength(0);
+                marksBorder.Visibility = Visibility.Collapsed;
+            }
+            
             UpdateLBMarks();
         }
 
@@ -35,6 +47,7 @@ namespace eCollege
             if (subjectList == null) 
             {
                 tipLabel.Text = "У тебя нет проблем с оценками. Молодец!";
+                lbMarks.Visibility = Visibility.Hidden;
             }
             lbMarks.ItemsSource = subjectList;
             tipLabel.Text = "У тебя есть задолженности по этим предметам.";
@@ -44,11 +57,21 @@ namespace eCollege
         public ObservableCollection<Subject> GetData() 
         {
             return new ObservableCollection<Subject>(Entities.GetContext().Database.SqlQuery<Subject>("SELECT * FROM Subject " +
-                                                                                                "WHERE Subject.Id IN ( " +
-                                                                                                "SELECT Subject.Id FROM Mark JOIN Lesson ON Mark.LessonId = Lesson.Id " +
+                                                                                                "WHERE Subject.Id IN" +
+                                                                                                "( SELECT Subject.Id " +
+                                                                                                "FROM Mark " +
+                                                                                                "JOIN Lesson ON Mark.LessonId = Lesson.Id " +
                                                                                                 "JOIN Subject ON Lesson.SubjectId = Subject.Id " +
                                                                                                 "GROUP BY Subject.Id " +
                                                                                                 "HAVING AVG(Mark1) < 3.5 ) "));
+        }
+
+        private void Click_LabelEditPhoto(object sender, MouseButtonEventArgs e)
+        {
+            string picstr = Image.SerializeFromDialog();
+
+            thisUser.Image = picstr;
+            Entities.GetContext().SaveChanges();
         }
     }
 }

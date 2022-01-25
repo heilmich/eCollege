@@ -95,9 +95,10 @@ namespace eCollege
             if (SignCheck(password, login) == false) return null;
 
             User user = db.User.Where( p => p.Login == login && p.Password == password).FirstOrDefault();
-            if (user != null) return user;              
+            if (user != null) return user;
 
             //Действие при неудачном входе
+            MessageBox.Show("Данные для входа не найдены. Проверьте правильность введенных данных.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             return null;
         }
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище DBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище ecollegeModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,7 +56,6 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
-          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -76,7 +75,6 @@
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -88,6 +86,7 @@
           <Property Name="TypeId" Type="int" Nullable="false" />
           <Property Name="RegDate" Type="datetime" Nullable="false" />
           <Property Name="LoginDate" Type="datetime" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -228,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище DBModelContainer">
+        <EntityContainer Name="Хранилище ecollegeModelContainer">
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mark" EntityType="Self.Mark" Schema="dbo" store:Type="Tables" />
@@ -287,7 +286,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ecollegeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Group">
           <Key>
             <PropertyRef Name="Id" />
@@ -350,7 +349,6 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Student_Group" FromRole="Student" ToRole="Group" />
           <NavigationProperty Name="Mark" Relationship="Self.FK_Mark_Student" FromRole="Student" ToRole="Mark" />
           <NavigationProperty Name="User" Relationship="Self.FK_Student_User" FromRole="Student" ToRole="User" />
@@ -374,7 +372,6 @@
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Group_Teacher" FromRole="Teacher" ToRole="Group" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_Lesson_Teacher" FromRole="Teacher" ToRole="Lesson" />
           <NavigationProperty Name="User" Relationship="Self.FK_Teacher_User" FromRole="Teacher" ToRole="User" />
@@ -389,6 +386,7 @@
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Student_User" FromRole="User" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_User" FromRole="User" ToRole="Teacher" />
           <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserType" FromRole="User" ToRole="UserType" />
@@ -593,9 +591,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище DBModelContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ecollegeModelContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Group">
-            <EntityTypeMapping TypeName="DBModel.Group">
+            <EntityTypeMapping TypeName="ecollegeModel.Group">
               <MappingFragment StoreEntitySet="Group">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -606,7 +604,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lesson">
-            <EntityTypeMapping TypeName="DBModel.Lesson">
+            <EntityTypeMapping TypeName="ecollegeModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SubjectId" ColumnName="SubjectId" />
@@ -619,7 +617,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mark">
-            <EntityTypeMapping TypeName="DBModel.Mark">
+            <EntityTypeMapping TypeName="ecollegeModel.Mark">
               <MappingFragment StoreEntitySet="Mark">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LessonId" ColumnName="LessonId" />
@@ -630,7 +628,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Specialty">
-            <EntityTypeMapping TypeName="DBModel.Specialty">
+            <EntityTypeMapping TypeName="ecollegeModel.Specialty">
               <MappingFragment StoreEntitySet="Specialty">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -638,7 +636,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Student">
-            <EntityTypeMapping TypeName="DBModel.Student">
+            <EntityTypeMapping TypeName="ecollegeModel.Student">
               <MappingFragment StoreEntitySet="Student">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -648,12 +646,11 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subject">
-            <EntityTypeMapping TypeName="DBModel.Subject">
+            <EntityTypeMapping TypeName="ecollegeModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -662,7 +659,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Teacher">
-            <EntityTypeMapping TypeName="DBModel.Teacher">
+            <EntityTypeMapping TypeName="ecollegeModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -670,12 +667,11 @@
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="DBModel.User">
+            <EntityTypeMapping TypeName="ecollegeModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
@@ -683,11 +679,12 @@
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="RegDate" ColumnName="RegDate" />
                 <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserType">
-            <EntityTypeMapping TypeName="DBModel.UserType">
+            <EntityTypeMapping TypeName="ecollegeModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

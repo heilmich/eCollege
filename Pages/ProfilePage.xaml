@@ -1,4 +1,4 @@
-﻿<Page x:Class="eCollege.StudentProfilePage"
+﻿<Page x:Class="eCollege.ProfilePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,6 +15,9 @@
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Foreground" Value="#FF4C4B4B"/>
         </Style>
+        <Style x:Key="Link" TargetType="Label">
+            <Setter Property="Foreground" Value="#1d4ade"/>
+        </Style>
         <local:ImageConverter x:Key="ImageConverter"/>
         
     </Page.Resources>
@@ -25,7 +28,7 @@
                 <ColumnDefinition Width="14"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="14"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Name="marksCol" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
@@ -43,7 +46,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="30"/>
                     </Grid.RowDefinitions>
-                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Height="90"/>
+                    <Image Source="{Binding User.Image, Converter={StaticResource ImageConverter}, IsAsync=True}" Height="90"/>
                     <StackPanel VerticalAlignment="Top" Grid.Row="1">
                         <TextBlock Text="{Binding User.UserType.Title}" HorizontalAlignment="Center" Margin="0,0,0,10" FontWeight="Medium"/>
                         <TextBlock FontSize="15" TextWrapping="Wrap" Margin="0,0,0,5">
@@ -56,7 +59,7 @@
                         </TextBlock>
                         
                     </StackPanel>
-                    <Label Content="Редактировать фото" VerticalAlignment="Bottom" FontSize="15" MinHeight="20" Grid.Row="2"/>
+                    <Label Content="Редактировать фото"  Style="{StaticResource Link}" VerticalAlignment="Bottom" FontSize="15" MinHeight="20" Grid.Row="2" MouseLeftButtonUp="Click_LabelEditPhoto"/>
                 </Grid>
             </Border>
             <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
@@ -70,12 +73,12 @@
                         <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding LastName}" FontWeight="Light"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Отчество: "/>
-                        <TextBlock  Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}" FontWeight="Light"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Имя: "/>
                         <TextBlock Style="{StaticResource lTextBlock}" Text="{Binding FirstName}" FontWeight="Light"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="Отчество: "/>
+                        <TextBlock  Style="{StaticResource lTextBlock}" Text="{Binding Patronymic}" FontWeight="Light"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="Пол: "/>
@@ -91,7 +94,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+            <Border Name="marksBorder" MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
                 </Border.Effect>

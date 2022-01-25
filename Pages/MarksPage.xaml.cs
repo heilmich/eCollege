@@ -29,13 +29,6 @@ namespace eCollege
 
         }
 
-        public void GetDataStudent(Student student)
-        {
-            MainWindow.lessonsList = student.Group.Lesson.ToList();
-            MainWindow.marksList = student.Mark.ToList();
-            MainWindow.subjectsList = student.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
-        }
-
         public async void UpdateMarksAsync()
         {
             await Task.Run(() => UpdateMarks());

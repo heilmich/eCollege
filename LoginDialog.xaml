@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Вход в систему" MinHeight="300" MinWidth="400" Background="#FF292929" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Title="Вход в систему" MinHeight="300" MinWidth="400" Background="#FFDEE9FF" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
