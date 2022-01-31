@@ -16,7 +16,7 @@ namespace eCollege
     public partial class Entities : DbContext
     {
         private static Entities _context;
-        public static Entities GetContext() 
+        public static Entities GetContext()
         {
             if (_context == null) return _context = new Entities();
             return _context;
@@ -34,6 +34,7 @@ namespace eCollege
         public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<Lesson> Lesson { get; set; }
         public virtual DbSet<Mark> Mark { get; set; }
+        public virtual DbSet<Message> Message { get; set; }
         public virtual DbSet<Specialty> Specialty { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }

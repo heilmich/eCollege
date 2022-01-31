@@ -75,9 +75,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddLessonWindow.xaml.cs">
+      <DependentUpon>AddLessonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Authorization.cs" />
     <Compile Include="Classes\Converters.cs" />
     <Compile Include="Classes\Image.cs" />
+    <Compile Include="Classes\StudMark.cs" />
     <Compile Include="DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,6 +109,9 @@
     <Compile Include="Mark.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MarksPage.xaml.cs">
       <DependentUpon>MarksPage.xaml</DependentUpon>
     </Compile>
@@ -118,6 +125,9 @@
     <Compile Include="Classes\SubjectMark.cs" />
     <Compile Include="Pages\TeacherProfilePage.xaml.cs">
       <DependentUpon>TeacherProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\TeacherMarksPage.xaml.cs">
+      <DependentUpon>TeacherMarksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Specialty.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
@@ -137,6 +147,10 @@
     <Compile Include="UserType.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Page Include="AddLessonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\TeacherProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TeacherMarksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,7 +227,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="background.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="profile.png" />
+    <Resource Include="Pages\placeholder.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBModel.Context.tt">
@@ -222,7 +243,6 @@
       <DependentUpon>DBModel.edmx</DependentUpon>
       <LastGenOutput>DBModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Pages\placeholder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -44,11 +44,13 @@ namespace eCollege
         public void UpdateLBMarks() 
         {
             subjectList = GetData();
+
             if (subjectList == null) 
             {
                 tipLabel.Text = "У тебя нет проблем с оценками. Молодец!";
                 lbMarks.Visibility = Visibility.Hidden;
             }
+
             lbMarks.ItemsSource = subjectList;
             tipLabel.Text = "У тебя есть задолженности по этим предметам.";
 

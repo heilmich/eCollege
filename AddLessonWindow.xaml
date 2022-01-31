@@ -1,0 +1,82 @@
+﻿<Window x:Class="eCollege.AddLessonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:eCollege"
+        mc:Ignorable="d"
+        Title="AddLessonWindow" Height="600" Width="400" Background="#FF52C1FF">
+    <Window.Resources>
+        <Style x:Key="Link" TargetType="Label">
+            <Setter Property="Foreground" Value="#1d4ade"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Border Padding="13" Background="White" Grid.Column="1" CornerRadius="5" MinHeight="80" BorderBrush="Gray" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+                <StackPanel Name="spGroup" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Группа"/>
+                    <ComboBox Name="cbGroup" MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbGroup">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                    <TextBlock Text="Предмет"/>
+                    <ComboBox Name="cbSubject"  MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbSubject">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Title}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                    <TextBlock Text="Учитель"/>
+                    <ComboBox Name="cbTeacher" MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbTeacher">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding LastName}"/>
+                                    <Label Content="{Binding FirstName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                    <TextBlock Text="Дата"/>
+                    <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
+                    <TextBlock Text="Кабинет"/>
+                    <TextBox Text="{Binding Classroom, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Left">
+                    <TextBlock Text="Очередь в расписании"/>
+                    <TextBox Text="{Binding OrderInShedule, Mode=TwoWay}" MinWidth="22" Margin="12,0,0,0"></TextBox>
+                </StackPanel>
+                <Label Content="Добавить" Name="lbAdd" Style="{StaticResource Link}" VerticalAlignment="Bottom" Margin="0,22,0,0" MouseLeftButtonUp="Click_lbAdd"/>
+            </StackPanel>
+        </Border>
+        
+    </Grid>
+</Window>

@@ -27,6 +27,7 @@ namespace eCollege
         public System.DateTime Date { get; set; }
         public int OrderInShedule { get; set; }
         public string HomeTask { get; set; }
+        public string Classroom { get; set; }
     
         public virtual Group Group { get; set; }
         public virtual Subject Subject { get; set; }

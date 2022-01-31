@@ -34,9 +34,9 @@ namespace eCollege
         public static ObservableCollection<SubjectMark> subjectMarks = new ObservableCollection<SubjectMark>();
 
         public static ProfilePage profilePage;
-        public static TeacherProfilePage teacherProfilePage;
         public static ShedulePage shedulePage;
         public static MarksPage marksPage;
+        public static TeacherMarksPage teacherMarksPage;
 
 
         public static User currentUser;
@@ -46,15 +46,23 @@ namespace eCollege
         public MainWindow(User user)
         {
             currentUser = db.User.Find(user.Id);
+            currentUser.LoginDate = DateTime.Now;
+            db.SaveChanges();
 
             GetData();
 
             profilePage = new ProfilePage();
             shedulePage = new ShedulePage();
-            marksPage = new MarksPage();
+            
             
 
             InitializeComponent();
+
+            if (currentUser.TypeId == 3) 
+            {
+                tbMarks.Visibility = Visibility.Collapsed;
+                tbGroup.Visibility = Visibility.Collapsed;
+            }
 
             NavigateProfile();
         }
@@ -66,15 +74,17 @@ namespace eCollege
             mainFrame.Navigate(profilePage);
         }
 
-        public static void GetData()
+        public void GetData()
         {
             if (currentUser.TypeId == 1) GetDataStudent();
             else if (currentUser.TypeId == 2) GetDataTeacher();
+            else if (currentUser.TypeId == 3) GetDataAdmin();
         }
         public static void GetDataTeacher() 
         {
             currentTeacher = currentUser.Teacher.First();
             lessonsList = currentTeacher.Lesson.ToList();
+            teacherMarksPage = new TeacherMarksPage();
         }
         
         public static void GetDataStudent() 
@@ -83,6 +93,12 @@ namespace eCollege
             lessonsList = currentStudent.Group.Lesson.ToList();
             marksList = currentStudent.Mark.ToList();
             subjectsList = currentStudent.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
+            marksPage = new MarksPage();
+        }
+
+        public void GetDataAdmin() 
+        {
+            
         }
 
 
@@ -99,7 +115,10 @@ namespace eCollege
 
         private void Click_Marks(object sender, MouseButtonEventArgs e)
         {
-            mainFrame.Navigate(marksPage);
+            if (currentUser.TypeId == 1)
+                mainFrame.Navigate(marksPage);
+            else if (currentUser.TypeId == 2)
+                mainFrame.Navigate(teacherMarksPage);
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)

@@ -16,7 +16,7 @@
         <local:HomeTaskConverter x:Key="HomeTaskConverter"/>
         <local:TeacherFIOConverter x:Key="TeacherFIOConverter"/>
     </Page.Resources>
-    <Border BorderBrush="Gray" BorderThickness="0.8">
+    <Border BorderBrush="Gray" BorderThickness="0.8" VerticalAlignment="Top" MinHeight="300">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
         </Border.Effect>
@@ -40,15 +40,21 @@
                     <Run Text="по"/>
                     <Run Name="rEndDay" Foreground="#FC777777"/>
                 </TextBlock>
+                <ComboBox Name="cbGroup" SelectedIndex="0" Visibility="Collapsed" Margin="20,0,0,0" Width="100" SelectionChanged="SelectionChanged_cbGroup">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
-            <DataGrid Name="mainSheduleGrid" Grid.Row="1" Grid.Column="1"  FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid Name="mainSheduleGrid" Grid.Row="1" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1"  FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-
                     <DataGridTextColumn Header="Дата" Width="50" Binding="{Binding MonthDay}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTemplateColumn Header="Предмет" MinWidth="150" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                <DataGrid ItemsSource="{Binding Lessons}" Name="dgLessons" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" GridLinesVisibility="None" BeginningEdit="BeginningEdit_dgLessons">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
                                         <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
@@ -57,7 +63,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Домашнее задание" x:Name="dgHomeTask" Width="2*">
+                    <DataGridTemplateColumn Header="Домашнее задание"  x:Name="dgHomeTask" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <DataGrid ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">

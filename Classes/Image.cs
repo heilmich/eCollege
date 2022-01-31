@@ -29,17 +29,25 @@ namespace eCollege
         }
         public static string Serialize(string path) // сериализация в строку
         {
-            string pic;
-            DirectoryInfo dirInfo = new DirectoryInfo(path);
-
-            using (FileStream fs = File.OpenRead(path))
+            try
             {
-                byte[] array = new byte[fs.Length];
-                fs.Read(array, 0, array.Length);
+                string pic;
+                DirectoryInfo dirInfo = new DirectoryInfo(path);
 
-                pic = JsonSerializer.Serialize(array);
-                return pic;
+                using (FileStream fs = File.OpenRead(path))
+                {
+                    byte[] array = new byte[fs.Length];
+                    fs.Read(array, 0, array.Length);
 
+                    pic = JsonSerializer.Serialize(array);
+                    return pic;
+
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Произошла непредвиденная ошибка. \n{ex.Message}\nОбратитесь к системному администратору за помощью.");
+                return null;
             }
         }
 

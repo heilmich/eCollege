@@ -33,11 +33,9 @@ namespace eCollege
             InitializeComponent();
             SetWeek();
             UpdateSheduleAsync();
-            if(MainWindow.currentUser.TypeId == 2) 
-            {
-                dgHomeTask.Visibility = Visibility.Collapsed;
-                dgMark.Visibility = Visibility.Collapsed;
-            }
+
+            if      (MainWindow.currentUser.TypeId == 2) dgMark.Visibility = Visibility.Collapsed;
+            else if (MainWindow.currentUser.TypeId == 3) GetGroups_cbGroup(); 
         }
 
 
@@ -87,6 +85,12 @@ namespace eCollege
             }
         }
 
+        private void GetGroups_cbGroup() 
+        {
+            cbGroup.Visibility = Visibility.Visible;
+            cbGroup.ItemsSource = Entities.GetContext().Group.ToList();
+        }
+
         private void Click_PreviousWeek(object sender, MouseButtonEventArgs e)
         {
             startDay = startDay.AddDays(-7);
@@ -99,6 +103,30 @@ namespace eCollege
             startDay = startDay.AddDays(7);
             SetWeek();
             UpdateShedule();
+        }
+
+        private void SelectionChanged_cbGroup(object sender, SelectionChangedEventArgs e)
+        {
+            var group = (Group)cbGroup.SelectedItem;
+            MainWindow.lessonsList = group.Lesson.ToList();
+            UpdateShedule();
+        }
+
+        private void BeginningEdit_dgLessons(object sender, DataGridBeginningEditEventArgs e)
+        {
+            if (MainWindow.currentUser.TypeId != 3) return;
+            if ((Lesson)((DataGrid)sender).SelectedItem != null) 
+            { 
+                AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem);
+                addLessonWindow.ShowDialog();
+            } else 
+            {
+                AddLessonWindow addLessonWindow = new AddLessonWindow();
+                addLessonWindow.ShowDialog();
+            }
+
+            UpdateShedule();
+            
         }
     }
 }

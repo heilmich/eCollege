@@ -33,7 +33,7 @@ namespace eCollege
             string str = "";
             foreach (var mark in list)
             {
-                str += $" {mark.Mark1}";
+                if (mark.Mark1 != 0) str += $" {mark.Mark1}";
             }
             return str;
         }
@@ -112,7 +112,7 @@ namespace eCollege
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
-            if (value == null) return "нет домашнего задания";
+            if (value == null) return "нет д/з";
             return value; 
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
@@ -128,6 +128,7 @@ namespace eCollege
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
             Teacher t = (Teacher)value;
+            if (t == null) return null;
             string fio = t.LastName + " " + t.FirstName.First() + ". " + t.Patronymic.First() + ". ";
             return fio;
         }

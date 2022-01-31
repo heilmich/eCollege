@@ -12,22 +12,22 @@
         <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
         <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Page.Resources>
-    <Border BorderBrush="Gray" BorderThickness="0.8">
+    <Border BorderBrush="Gray" BorderThickness="0.8"  VerticalAlignment="Top">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
         </Border.Effect>
         <Grid  Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="17"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="17"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="17"/>
                 <RowDefinition/>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="17"/>
             </Grid.RowDefinitions>
-            <DataGrid Name="finalMarksGrid" Grid.Column="1" Grid.Row="1" FontSize="16" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid MinHeight="250" Name="finalMarksGrid" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="1" FontSize="16" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>

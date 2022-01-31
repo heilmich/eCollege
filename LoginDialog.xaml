@@ -69,7 +69,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="background.png"/>
         </Grid.Background>
-        <Border  VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="9" Background="White" Padding="30">
+        <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="9" Background="White" Padding="30">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock Margin="0,0,20,0">

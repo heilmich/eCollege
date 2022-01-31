@@ -1,0 +1,67 @@
+﻿<Page x:Class="eCollege.TeacherMarksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:eCollege"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TeacherMarksPage">
+    <Page.Resources>
+        <local:AllMarksConverter x:Key="AllMarksConverter"/>
+        <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
+        <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
+        <local:MarkConverter x:Key="MarkConverter"/>
+    </Page.Resources>
+    <Border BorderBrush="Gray" BorderThickness="0.8"  VerticalAlignment="Top">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+        </Border.Effect>
+        <Grid  Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="17"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="17"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="17"/>
+                <RowDefinition/>
+                <RowDefinition Height="17"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1"  VerticalAlignment="Center" Orientation="Horizontal">
+                <ComboBox Name="cbGroup" SelectedIndex="0" MinWidth="80" SelectionChanged="SelectionChanged_cbGroup">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    
+                </ComboBox>
+                <ComboBox Name="cbSubject" SelectedIndex="0" MinWidth="80" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbSubject">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Title}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Name="cbStudent" SelectedIndex="0" MinWidth="150" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbStudent">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Content="{Binding LastName}"/>
+                                <Label Content="{Binding FirstName}" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <DataGrid MinHeight="250" Name="marksGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="2" FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" RowEditEnding="RowEditEnding_marksGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата" Width="100" Binding="{Binding Date}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Оценка"  Binding="{Binding Mark1, Mode=TwoWay}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
+</Page>
