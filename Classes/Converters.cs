@@ -61,9 +61,10 @@ namespace eCollege
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
-            if (((ObservableCollection<Mark>)value).Count != 0)
+            var list = ((ObservableCollection<Mark>)value).Where(p => p.Mark1 >= 1);
+            if (list.Count() != 0)
             {
-                return ((ObservableCollection<Mark>)value).Average(p => p.Mark1);
+                return list.Average(p => p.Mark1);
             }
             else return null;
         }
@@ -77,11 +78,12 @@ namespace eCollege
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
-            if (((ObservableCollection<Mark>)value).Count == 0)
+            var list = ((ObservableCollection<Mark>)value).Where(p => p.Mark1 >= 1);
+            if (list.Count() == 0)
             {
                 return null;
             }
-            var avg = ((ObservableCollection<Mark>)value).Average(p => p.Mark1);
+            var avg = list.Average(p => p.Mark1);
             if (avg >= 0 && avg < 2.5) return 2;
             else if (avg < 3.5) return 3;
             else if (avg < 4.5) return 4;
@@ -129,8 +131,42 @@ namespace eCollege
         {
             Teacher t = (Teacher)value;
             if (t == null) return null;
-            string fio = t.LastName + " " + t.FirstName.First() + ". " + t.Patronymic.First() + ". ";
+            string fio = t.User.LastName + " " + t.User.FirstName.First() + ". " + t.User.Patronymic.First() + ". ";
             return fio;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+
+
+    }
+
+    public class GroupConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            var user = (User)value;
+            if (user.TypeId == 1) return user.Student.First().Group.Name;
+            else if (user.TypeId == 2) return user.Teacher.First().Group.First().Name;
+            return null;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            return DependencyProperty.UnsetValue;
+        }
+
+
+    }
+
+    public class CourseConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
+        {
+            var user = (User)value;
+            if (user.TypeId == 1) return user.Student.First().Group.Course;
+            else if (user.TypeId == 2) return user.Teacher.First().Group.First().Course;
+            return null;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {

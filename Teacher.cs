@@ -23,10 +23,6 @@ namespace eCollege
     
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string LastName { get; set; }
-        public string Patronymic { get; set; }
-        public string FirstName { get; set; }
-        public string Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Group { get; set; }

@@ -27,11 +27,14 @@
         <Grid.Background>
             <ImageBrush ImageSource="/background.png" Stretch="UniformToFill"/>
         </Grid.Background>
+        
         <Border Padding="13" Background="White" Grid.Column="1" CornerRadius="5" MinHeight="80" BorderBrush="Gray" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+                
                 <StackPanel Name="spGroup" Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock Text="Группа"/>
-                    <ComboBox Name="cbGroup" MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbGroup">
+                    <ComboBox Name="cbGroup" MinWidth="100" Margin="12,0,0,0" SelectedIndex="0" SelectionChanged="SelectionChanged_cbGroup">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Name}"/>
@@ -39,9 +42,10 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
                     <TextBlock Text="Предмет"/>
-                    <ComboBox Name="cbSubject"  MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbSubject">
+                    <ComboBox Name="cbSubject"  MinWidth="100" Margin="12,0,0,0" SelectedIndex="0" SelectionChanged="SelectionChanged_cbSubject">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Title}"/>
@@ -49,9 +53,11 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
                     <TextBlock Text="Учитель"/>
-                    <ComboBox Name="cbTeacher" MinWidth="100" Margin="12,0,0,0" SelectionChanged="SelectionChanged_cbTeacher">
+                    
+                    <ComboBox Name="cbTeacher" MinWidth="100" Margin="12,0,0,0" SelectedIndex="0" SelectionChanged="SelectionChanged_cbTeacher">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -61,20 +67,26 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                    
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
                     <TextBlock Text="Дата"/>
                     <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></DatePicker>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
                     <TextBlock Text="Кабинет"/>
                     <TextBox Text="{Binding Classroom, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></TextBox>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Left">
                     <TextBlock Text="Очередь в расписании"/>
                     <TextBox Text="{Binding OrderInShedule, Mode=TwoWay}" MinWidth="22" Margin="12,0,0,0"></TextBox>
                 </StackPanel>
-                <Label Content="Добавить" Name="lbAdd" Style="{StaticResource Link}" VerticalAlignment="Bottom" Margin="0,22,0,0" MouseLeftButtonUp="Click_lbAdd"/>
+                
+                <Label Content="Сохранить" Name="lbAdd" Style="{StaticResource Link}" VerticalAlignment="Bottom" Margin="0,22,0,0" MouseLeftButtonUp="Click_lbAdd"/>
+            
             </StackPanel>
         </Border>
         

@@ -27,17 +27,14 @@ namespace eCollege
         public ProfilePage()
         {
             InitializeComponent();
-            if (MainWindow.currentUser.TypeId == 1) 
+            if (MainWindow.currentUser.TypeId == 2) 
             {
-                lkGrid.DataContext = MainWindow.currentUser.Student;
-            }
-            else if (MainWindow.currentUser.TypeId == 2) 
-            {
-                lkGrid.DataContext = MainWindow.currentUser.Teacher;
                 marksCol.Width = new GridLength(0);
                 marksBorder.Visibility = Visibility.Collapsed;
             }
-            
+
+            lkGrid.DataContext = MainWindow.currentUser;
+
             UpdateLBMarks();
         }
 
@@ -68,12 +65,24 @@ namespace eCollege
                                                                                                 "HAVING AVG(Mark1) < 3.5 ) "));
         }
 
+        // Изменение фото профиля
         private void Click_LabelEditPhoto(object sender, MouseButtonEventArgs e)
         {
-            string picstr = Image.SerializeFromDialog();
+            try 
+            {
+                string picstr = Image.SerializeFromDialog();
 
-            thisUser.Image = picstr;
-            Entities.GetContext().SaveChanges();
+                Entities.GetContext().User.Find(MainWindow.currentUser.Id).Image = picstr;
+                Entities.GetContext().SaveChanges();
+
+                MainWindow.UpdateUser(MainWindow.currentUser.Id);
+                lkGrid.DataContext = MainWindow.currentUser;
+                MessageBox.Show("Изображение изменено");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
+            }
         }
     }
 }

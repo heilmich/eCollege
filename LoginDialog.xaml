@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
         Title="Вход в систему" MinHeight="300" MinWidth="400" Background="#FFDEE9FF" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
@@ -66,19 +67,24 @@
         </Style>
     </Window.Resources>
     <Grid>
+        
         <Grid.Background>
             <ImageBrush ImageSource="background.png"/>
         </Grid.Background>
+        
         <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="9" Background="White" Padding="30">
+            
             <StackPanel>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock Margin="0,0,20,0">
                             Логин
                     </TextBlock>
-                    <TextBox Name="tbLogin" MinHeight="20" MinWidth="100" HorizontalAlignment="Right">
+                    <TextBox Name="tbLogin"  MinHeight="20" MinWidth="100" HorizontalAlignment="Right">
 
                     </TextBox>
                 </StackPanel>
+                
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <TextBlock Margin="0,0,20,0">
                             Пароль
@@ -87,8 +93,12 @@
 
                     </TextBox>
                 </StackPanel>
+                
                 <Button Style="{DynamicResource ButtonStyle1}" Name="btnSignIn" Content="Войти" Margin="0,25,0,0" Click="btnSignIn_Click"/>
+            
             </StackPanel>
+            
         </Border>
+        
     </Grid>
 </Window>

@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8142d4bf08b0475ea4b376bf25156fa2" Name="Diagram1" ZoomLevel="63">
-        <EntityTypeShape EntityType="ecollegeModel.Group" Width="1.5" PointX="7.5" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Lesson" Width="1.5" PointX="9.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Mark" Width="1.5" PointX="10.5" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Message" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Specialty" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Student" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Subject" Width="1.5" PointX="7.5" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Teacher" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.User" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.UserType" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+      <Diagram DiagramId="dfe5c91a7e914b0b8dc956470ec23f7a" Name="Diagram1">
+        <EntityTypeShape EntityType="ecollegeModel.Group" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Lesson" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Mark" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Message" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Specialty" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Student" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Subject" Width="1.5" PointX="7.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.Teacher" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.User" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecollegeModel.UserType" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="ecollegeModel.FK_Group_Specialty" ManuallyRouted="false" />
         <AssociationConnector Association="ecollegeModel.FK_Group_Teacher" ManuallyRouted="false" />
         <AssociationConnector Association="ecollegeModel.FK_Lesson_Group" ManuallyRouted="false" />

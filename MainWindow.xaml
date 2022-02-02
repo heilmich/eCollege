@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Электронный журнал" MinHeight="650" MinWidth="1024" Height="700" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White" Background="#FFDEE9FF">
+        Title="Электронный журнал" MinHeight="650" MinWidth="1024" Height="700" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White" Background="#FF52C1FF">
     <Window.Resources>
         <Style x:Key="lkTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
@@ -53,9 +53,10 @@
             <TextBlock Text="Группа" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbGroup" Margin="15,0,0,0" />
         </StackPanel>
 
-        <Border Panel.ZIndex="2" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Padding="10,10" CornerRadius="50">
-            <Image Source="profile.png"  MinHeight="25" MouseLeftButtonUp="Click_Profile"/>
-        </Border>
+        <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Height="50" VerticalAlignment="Center">
+            <Image Source="message.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Message"/>
+            <Image Margin="15,0,0,0" Source="profile.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Profile"/>
+        </StackPanel>
 
         <Frame Grid.Column="1"   Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Name="mainFrame" NavigationUIVisibility="Hidden" />
 

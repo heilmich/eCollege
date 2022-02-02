@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Windows.Media.Effects;
+using System.Windows.Media.Animation;
 
 namespace eCollege
 {   
@@ -33,6 +35,7 @@ namespace eCollege
         public static List<Subject> subjectsList = new List<Subject>();
         public static ObservableCollection<SubjectMark> subjectMarks = new ObservableCollection<SubjectMark>();
 
+        public static MessengerPage messengerPage;
         public static ProfilePage profilePage;
         public static ShedulePage shedulePage;
         public static MarksPage marksPage;
@@ -53,7 +56,7 @@ namespace eCollege
 
             profilePage = new ProfilePage();
             shedulePage = new ShedulePage();
-            
+            messengerPage = new MessengerPage();
             
 
             InitializeComponent();
@@ -65,6 +68,7 @@ namespace eCollege
             }
 
             NavigateProfile();
+
         }
 
 
@@ -78,7 +82,11 @@ namespace eCollege
         {
             if (currentUser.TypeId == 1) GetDataStudent();
             else if (currentUser.TypeId == 2) GetDataTeacher();
-            else if (currentUser.TypeId == 3) GetDataAdmin();
+        }
+
+        public static void UpdateUser(int userId) 
+        {
+            currentUser = db.User.Find(userId);
         }
         public static void GetDataTeacher() 
         {
@@ -95,13 +103,6 @@ namespace eCollege
             subjectsList = currentStudent.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
             marksPage = new MarksPage();
         }
-
-        public void GetDataAdmin() 
-        {
-            
-        }
-
-
 
         private void Click_Profile(object sender, MouseButtonEventArgs e)
         {
@@ -124,6 +125,11 @@ namespace eCollege
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/heilmich/eCollege");
+        }
+
+        private void Click_Message(object sender, MouseButtonEventArgs e)
+        {
+            mainFrame.Navigate(messengerPage);
         }
     }
 }

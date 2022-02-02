@@ -30,12 +30,16 @@ namespace eCollege
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            Authorization authorization = new Authorization();
-            User user = (User)authorization.SignIn(tbLogin.Text, tbPassword.Text, db);
+            Authorization authorization = new Authorization(); // Создаем класс для авторизации
+
+            User user = (User)authorization.SignIn(tbLogin.Text, tbPassword.Text, db); // пытаемся войти и внутри класса проверяем данные
+
             if (user == null) return;
+
             MainWindow mainWindow = new MainWindow(user);
-            db.Dispose();
             mainWindow.Show();
+
+            db.Dispose();
             this.Close();
         }
 

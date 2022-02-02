@@ -53,16 +53,25 @@ namespace eCollege
 
         public static BitmapImage Deserialize(string value) // десериализация json строки из БД в изображение
         {
-            byte[] array = System.Convert.FromBase64String(JsonSerializer.Deserialize<string>((string)value));
-            MemoryStream ms = new MemoryStream(array, 0, array.Length);
-            BitmapImage img = new BitmapImage();
+            try
+            {
+                byte[] array = System.Convert.FromBase64String(JsonSerializer.Deserialize<string>((string)value));
+                MemoryStream ms = new MemoryStream(array, 0, array.Length);
+                BitmapImage img = new BitmapImage();
 
-            img.BeginInit();
-            img.StreamSource = ms;
-            img.CacheOption = BitmapCacheOption.OnLoad;
-            img.EndInit();
-            img.Freeze();
-            return img;
+                img.BeginInit();
+                img.StreamSource = ms;
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
+                img.Freeze();
+                return img;
+
+            } 
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Произошла ошибка. Изображение не загружено.\n" + ex.Message);
+                return null;
+            }
         }
     }
 }

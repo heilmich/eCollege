@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace eCollege
 {
     /// <summary>
@@ -23,23 +24,31 @@ namespace eCollege
         public Group selectedGroup;
         public Teacher selectedTeacher;
         public Subject selectedSubject;
+
+        // Создание окна для нового урока
         public AddLessonWindow()
         {
             InitializeComponent();
+
             currentLesson = new Lesson();
             currentLesson.Date = DateTime.Today.AddDays(1);
             this.DataContext = currentLesson;
+
             GetData();
         }
 
+        // Создание окна для существующего урока
         public AddLessonWindow(Lesson lesson)
         {
             InitializeComponent();
+
             currentLesson = lesson;
             this.DataContext = currentLesson;
+
             GetData();
         }
 
+        // Заполнение ComboBox'ов из базы данных
         public void GetData() 
         {
             cbGroup.ItemsSource = Entities.GetContext().Group.ToList();
@@ -47,15 +56,24 @@ namespace eCollege
             cbTeacher.ItemsSource = Entities.GetContext().Teacher.ToList();
         }
 
+        // Добавление (обновление) занятия в базу данных
         private void Click_lbAdd(object sender, MouseButtonEventArgs e)
         {
-            currentLesson.TeacherId = selectedTeacher.Id;
-            currentLesson.GroupId = selectedGroup.Id;
-            currentLesson.SubjectId = selectedSubject.Id;
-            if (Entities.GetContext().Lesson.Find(currentLesson.Id) == null) Entities.GetContext().Lesson.Add(currentLesson);
+            try
+            {
+                currentLesson.TeacherId = selectedTeacher.Id;
+                currentLesson.GroupId = selectedGroup.Id;
+                currentLesson.SubjectId = selectedSubject.Id;
 
-            Entities.GetContext().SaveChanges();
-            MessageBox.Show("Урок добавлен.");
+                // Если урока не существует, тогда добавляем новый
+                if (Entities.GetContext().Lesson.Find(currentLesson.Id) == null) Entities.GetContext().Lesson.Add(currentLesson);
+
+                Entities.GetContext().SaveChanges();
+                MessageBox.Show("Урок добавлен.");
+            } catch (Exception ex) 
+            {
+                MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
+            }
         }
 
         private void SelectionChanged_cbGroup(object sender, SelectionChangedEventArgs e)

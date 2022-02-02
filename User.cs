@@ -27,9 +27,14 @@ namespace eCollege
         public string Login { get; set; }
         public string Password { get; set; }
         public int TypeId { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Patronymic { get; set; }
+        public string Gender { get; set; }
+        public string Image { get; set; }
         public System.DateTime RegDate { get; set; }
         public System.DateTime LoginDate { get; set; }
-        public string Image { get; set; }
+        public string BirthDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Message { get; set; }

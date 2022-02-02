@@ -25,17 +25,12 @@ namespace eCollege
         public MarksPage()
         {
             InitializeComponent();
-            UpdateMarksAsync();
+            UpdateMarks();
 
         }
 
 
-        public async void UpdateMarksAsync()
-        {
-            await Task.Run(() => UpdateMarks());
 
-            finalMarksGrid.ItemsSource = MainWindow.subjectMarks;
-        }
         public void UpdateMarks()
         {
             MainWindow.subjectMarks.Clear();
@@ -47,6 +42,8 @@ namespace eCollege
                 sm.Marks = new ObservableCollection<Mark>(MainWindow.currentStudent.Mark.Where(p => p.Lesson.Subject == item));
                 MainWindow.subjectMarks.Add(sm);
             }
+
+            finalMarksGrid.ItemsSource = MainWindow.subjectMarks;
         }
 
 
