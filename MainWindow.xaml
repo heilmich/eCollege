@@ -59,7 +59,7 @@
         </StackPanel>
 
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Height="50" VerticalAlignment="Center">
-            <Image Source="message.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Message"/>
+            <Image Name="imgMessage" Source="message.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Message"/>
             <Image Margin="15,0,0,0" Source="profile.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Profile"/>
         </StackPanel>
 

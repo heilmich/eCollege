@@ -61,8 +61,8 @@
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding LastName}"/>
-                                    <Label Content="{Binding FirstName}"/>
+                                    <Label Content="{Binding User.LastName}"/>
+                                    <Label Content="{Binding User.FirstName}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>

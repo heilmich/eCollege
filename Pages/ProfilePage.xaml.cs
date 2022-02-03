@@ -27,7 +27,7 @@ namespace eCollege
         public ProfilePage()
         {
             InitializeComponent();
-            if (MainWindow.currentUser.TypeId == 2) 
+            if (MainWindow.currentUser.TypeId == 2 || MainWindow.currentUser.TypeId == 3) 
             {
                 marksCol.Width = new GridLength(0);
                 marksBorder.Visibility = Visibility.Collapsed;
