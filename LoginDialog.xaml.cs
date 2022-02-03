@@ -32,7 +32,7 @@ namespace eCollege
         {
             Authorization authorization = new Authorization(); // Создаем класс для авторизации
 
-            User user = (User)authorization.SignIn(tbLogin.Text, tbPassword.Text, db); // пытаемся войти и внутри класса проверяем данные
+            User user = (User)authorization.SignIn(tbLogin.Text, tbPassword.Password, db); // пытаемся войти и внутри класса проверяем данные
 
             if (user == null) return;
 

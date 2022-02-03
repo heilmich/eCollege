@@ -64,7 +64,6 @@ namespace eCollege
             if (currentUser.TypeId == 3) 
             {
                 tbMarks.Visibility = Visibility.Collapsed;
-                tbGroup.Visibility = Visibility.Collapsed;
             }
 
             NavigateProfile();

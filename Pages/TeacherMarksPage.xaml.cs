@@ -27,6 +27,7 @@ namespace eCollege
         public Group currentGroup;
         public Subject currentSubject;
         public Student currentStudent;
+        public Teacher currentTeacher;
         public ObservableCollection<StudMark> studMarks = new ObservableCollection<StudMark>();
 
         //public ObservableCollection<StudSubjMarks> subjMarks = new ObservableCollection<StudSubjMarks>();
@@ -35,12 +36,13 @@ namespace eCollege
         public TeacherMarksPage()
         {
             InitializeComponent();
+            currentTeacher = MainWindow.currentTeacher;
             GetDataGroup();
         }
 
         public void GetDataMarks() 
         {
-            if (currentStudent == null) return;
+            if (currentStudent == null || currentGroup == null || currentSubject == null) return;
             studMarks.Clear();
             var list = Entities.GetContext().Lesson.Where( p => p.Teacher.Id == MainWindow.currentTeacher.Id && p.SubjectId == currentSubject.Id && p.GroupId == currentGroup.Id).ToList();
             foreach(var item in list) 
@@ -109,7 +111,7 @@ namespace eCollege
 
         public void GetDataGroup() 
         {
-            cbGroup.ItemsSource = Entities.GetContext().Database.SqlQuery<Group>("SELECT * FROM [Group] " +
+            cbGroup.ItemsSource = Entities.GetContext().Group.SqlQuery("SELECT * FROM [Group] " +
                                                                                 "WHERE Id IN ( " +
                                                                                 "SELECT Lesson.GroupId FROM Lesson JOIN Teacher ON Lesson.TeacherId = Teacher.Id " +
                                                                                 $"WHERE Teacher.Id = {MainWindow.currentTeacher.Id} ) ")
@@ -119,7 +121,7 @@ namespace eCollege
 
         public void GetDataSubject() 
         {
-            cbSubject.ItemsSource = Entities.GetContext().Database.SqlQuery<Subject>("SELECT * FROM Subject " +
+            cbSubject.ItemsSource = Entities.GetContext().Subject.SqlQuery("SELECT * FROM Subject " +
                                                                                 "WHERE Subject.Id IN ( " +
                                                                                 "SELECT SubjectId FROM Lesson JOIN Teacher ON Lesson.TeacherId = Teacher.Id " +
                                                                                 "  " +
@@ -129,7 +131,7 @@ namespace eCollege
 
         public void GetDataStudent() 
         {
-            cbStudent.ItemsSource = Entities.GetContext().Database.SqlQuery<Student>("SELECT * FROM Student " +
+            cbStudent.ItemsSource = Entities.GetContext().Student.SqlQuery("SELECT * FROM Student " +
                                                                                 $"WHERE GroupId = {currentGroup.Id} ")
                                                                                 .ToList(); ;
         }
@@ -138,14 +140,12 @@ namespace eCollege
         {
             currentGroup = (Group)(cbGroup.SelectedItem);
             GetDataSubject();
-            cbSubject.SelectedIndex = 0;
         }
 
         private void SelectionChanged_cbSubject(object sender, SelectionChangedEventArgs e)
         {
             currentSubject = (Subject)(cbSubject.SelectedItem);
             GetDataStudent();
-            cbStudent.SelectedIndex = 0;
         }
 
         private void SelectionChanged_cbStudent(object sender, SelectionChangedEventArgs e) 
@@ -176,5 +176,6 @@ namespace eCollege
             
             //var mark = Entities.GetContext().Mark.Where( p => p.StudentId == stud.Student.Id && p.LessonId == stud.Lesson.Id);
         }
+
     }
 }

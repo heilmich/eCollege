@@ -62,25 +62,31 @@ namespace eCollege
 
         private void Click_btnSend(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Message msg = new Message();
 
-            Message msg = new Message();
+                msg.Text = tbMessage.Text;
+                msg.Date = DateTime.Now;
+                msg.SenderId = MainWindow.currentUser.Id;
+                msg.IsReaded = false;
+                if (MainWindow.currentUser.TypeId == 1) msg.RecieverId = ((Teacher)lvUsers.SelectedItem).User.Id;
+                else msg.RecieverId = ((Student)lvUsers.SelectedItem).User.Id;
 
-            msg.Text = tbMessage.Text;
-            msg.Date = DateTime.Now;
-            msg.SenderId = MainWindow.currentUser.Id;
-            msg.IsReaded = false;
-            if (MainWindow.currentUser.TypeId == 1) msg.RecieverId = ((Teacher)lvUsers.SelectedItem).User.Id;
-            else                                    msg.RecieverId = ((Student)lvUsers.SelectedItem).User.Id;
+                Entities.GetContext().Message.Add(msg);
+                Entities.GetContext().SaveChanges();
 
-            Entities.GetContext().Message.Add(msg);
-            Entities.GetContext().SaveChanges();
-
-            Update();
-                
+                Update();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void SelectionChanged_lvUsers(object sender, SelectionChangedEventArgs e)
         {
+            btnSend.IsEnabled = true;
             if (MainWindow.currentUser.TypeId == 1)
             selectedUser = ((Teacher)lvUsers.SelectedItem).User;
             else selectedUser = ((Student)lvUsers.SelectedItem).User;

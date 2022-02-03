@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Электронный журнал" MinHeight="650" MinWidth="1024" Height="700" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White" Background="#FF52C1FF">
+        Title="Электронный журнал" MinHeight="650" MinWidth="1024" Height="700" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White">
     <Window.Resources>
         <Style x:Key="lkTextBox" TargetType="TextBox">
             <Setter Property="MinWidth" Value="150"/>
@@ -22,6 +22,12 @@
         <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
         <local:FinalMarksConverter x:Key="FinalMarksConverter"/>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFD3F0FF"/>
+            <GradientStop Color="#FF52C1FF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
     <Grid Name="mainGrid">
 
@@ -50,7 +56,6 @@
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
             <TextBlock Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" MouseLeftButtonUp="Click_Shedule" />
             <TextBlock Text="Оценки" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
-            <TextBlock Text="Группа" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbGroup" Margin="15,0,0,0" />
         </StackPanel>
 
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Height="50" VerticalAlignment="Center">
@@ -58,7 +63,7 @@
             <Image Margin="15,0,0,0" Source="profile.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Profile"/>
         </StackPanel>
 
-        <Frame Grid.Column="1"   Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Name="mainFrame" NavigationUIVisibility="Hidden" />
+        <Frame Grid.Column="1"  Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Name="mainFrame" NavigationUIVisibility="Hidden" />
 
         <TextBlock Grid.Row="5" Grid.Column="1" FontSize="13" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="#FF2D2D2D" FontFamily="Segoe UI" FontWeight="Normal" Background="#99FFFFFF">
             <Run Text="GitHub разработчика:" Foreground="#406cff"/>

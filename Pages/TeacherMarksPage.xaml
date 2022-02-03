@@ -29,7 +29,9 @@
                 <RowDefinition/>
                 <RowDefinition Height="17"/>
             </Grid.RowDefinitions>
+            
             <StackPanel Grid.Column="1"  VerticalAlignment="Center" Orientation="Horizontal">
+                
                 <ComboBox Name="cbGroup" SelectedIndex="0" MinWidth="80" SelectionChanged="SelectionChanged_cbGroup">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -38,23 +40,25 @@
                     </ComboBox.ItemTemplate>
                     
                 </ComboBox>
-                <ComboBox Name="cbSubject" SelectedIndex="0" MinWidth="80" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbSubject">
+                <ComboBox Name="cbSubject" MinWidth="80" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbSubject">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Label Content="{Binding Title}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox Name="cbStudent" SelectedIndex="0" MinWidth="150" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbStudent">
+
+                <ComboBox Name="cbStudent" MinWidth="200" Margin="20,0,0,0" SelectionChanged="SelectionChanged_cbStudent">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <Label Content="{Binding LastName}"/>
-                                <Label Content="{Binding FirstName}" Margin="8,0,0,0"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding User.LastName}"/>
+                                <Label Content="{Binding User.FirstName}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                
             </StackPanel>
             <DataGrid MinHeight="250" Name="marksGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="2" FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" RowEditEnding="RowEditEnding_marksGrid">
                 <DataGrid.Columns>

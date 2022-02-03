@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:eCollege"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MarksPage">
+      Title="MarksPage" FontSize="16">
     <Page.Resources>
         <local:AllMarksConverter x:Key="AllMarksConverter"/>
         <local:AvgMarksConverter x:Key="AvgMarksConverter"/>
@@ -27,10 +27,10 @@
                 <RowDefinition/>
                 <RowDefinition Height="17"/>
             </Grid.RowDefinitions>
-            <DataGrid MinHeight="250" Name="finalMarksGrid" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="1" FontSize="16" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid MinHeight="250" Name="finalMarksGrid" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="1" FontSize="17" AutoGenerateColumns="False" GridLinesVisibility="Horizontal" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>
+                    <DataGridTextColumn MinWidth="100" Width="1.5*" Header="Предмет" Binding="{Binding SubjectTitle}"></DataGridTextColumn>
+                    <DataGridTextColumn MinWidth="100" Width="1.5*" Header="Оценки" Binding="{Binding Marks, Converter={StaticResource AllMarksConverter}}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Средний балл" Binding="{Binding Marks, Converter={StaticResource AvgMarksConverter}}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Итоговая оценка" Binding="{Binding Marks, Converter={StaticResource FinalMarksConverter}}"></DataGridTextColumn>
                 </DataGrid.Columns>

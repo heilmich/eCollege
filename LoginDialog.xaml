@@ -6,7 +6,7 @@
         xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="Вход в систему" MinHeight="300" MinWidth="400" Background="#FFDEE9FF" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Title="Вход в систему" MinHeight="400" MinWidth="500" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -38,7 +38,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="White" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                        <Border x:Name="border" Background="#FF52C1FF" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
                             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -46,16 +46,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Foreground" Value="#FF52C1FF"/>
                                 <Setter Property="Background" TargetName="border" Value="White"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Foreground" Value="#FF52C1FF"/>
                                 <Setter Property="Background" TargetName="border" Value="Gray"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="White"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Foreground" Value="#FF52C1FF"/>
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
                                 <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
@@ -66,18 +67,24 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFBEE8FF"/>
+            <GradientStop Color="#FF52C1FF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         
         <Grid.Background>
             <ImageBrush ImageSource="background.png"/>
         </Grid.Background>
         
-        <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="9" Background="White" Padding="30">
+        <Border BorderBrush="Gray" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="9" Background="White" Padding="40">
             
             <StackPanel>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Margin="0,0,20,0">
+                    <TextBlock FontFamily="Calibri" FontSize="14" Margin="0,0,20,0">
                             Логин
                     </TextBlock>
                     <TextBox Name="tbLogin"  MinHeight="20" MinWidth="100" HorizontalAlignment="Right">
@@ -86,15 +93,15 @@
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                    <TextBlock Margin="0,0,20,0">
+                    <TextBlock FontFamily="Calibri" FontSize="14" Margin="0,0,20,0">
                             Пароль
                     </TextBlock>
-                    <TextBox Name="tbPassword" MinHeight="20" MinWidth="100">
+                    <PasswordBox Name="tbPassword" MinHeight="20" MinWidth="100">
 
-                    </TextBox>
+                    </PasswordBox>
                 </StackPanel>
                 
-                <Button Style="{DynamicResource ButtonStyle1}" Name="btnSignIn" Content="Войти" Margin="0,25,0,0" Click="btnSignIn_Click"/>
+                <Button Style="{DynamicResource ButtonStyle1}" Name="btnSignIn" Foreground="White" FontSize="14" FontFamily="Calibri"  FontWeight="ExtraBold" Content="Войти" Margin="0,25,0,0" Click="btnSignIn_Click"/>
             
             </StackPanel>
             
