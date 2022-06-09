@@ -5,22 +5,22 @@ VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCollege", "eCollege.csproj", "{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\Tests\Tests.csproj", "{F30A7950-0184-4CDE-A516-391978B67486}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Debug|x64.ActiveCfg = Debug|x64
+		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Debug|x64.Build.0 = Debug|x64
 		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F30A7950-0184-4CDE-A516-391978B67486}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F30A7950-0184-4CDE-A516-391978B67486}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F30A7950-0184-4CDE-A516-391978B67486}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F30A7950-0184-4CDE-A516-391978B67486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Release|x64.ActiveCfg = Release|x64
+		{5F9AA5A3-5752-4BEF-B927-DCCE203A21ED}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

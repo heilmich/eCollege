@@ -26,16 +26,16 @@
         <Grid Name="lkGrid" DataContext="{Binding Student}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="12"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="12"/>
                 <ColumnDefinition Name="marksCol" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="14"/>
-                <RowDefinition />
-                <RowDefinition Height="14"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="12"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="12"/>
             </Grid.RowDefinitions>
             <Border MinHeight="250" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="1" Background="White">
                 <Border.Effect>

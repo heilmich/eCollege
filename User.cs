@@ -21,6 +21,7 @@ namespace eCollege
             this.Message1 = new HashSet<Message>();
             this.Student = new HashSet<Student>();
             this.Teacher = new HashSet<Teacher>();
+            this.News = new HashSet<News>();
         }
     
         public int Id { get; set; }
@@ -45,5 +46,7 @@ namespace eCollege
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Teacher> Teacher { get; set; }
         public virtual UserType UserType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News> News { get; set; }
     }
 }

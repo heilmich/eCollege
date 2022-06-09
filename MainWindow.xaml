@@ -32,21 +32,21 @@
     <Grid Name="mainGrid">
 
         <Grid.Background>
-            <ImageBrush ImageSource="/background.png" Stretch="UniformToFill" TileMode="FlipXY"/>
+            <ImageBrush Opacity="0.7" ImageSource="/background.png" Stretch="UniformToFill" TileMode="FlipXY"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="1.4*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="55" Height="0.27*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Border BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="1" Grid.ColumnSpan="5" Background="#0072BC">
@@ -54,7 +54,8 @@
         </Border>
 
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <TextBlock Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" MouseLeftButtonUp="Click_Shedule" />
+            <TextBlock Text="Новости" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbNews" MouseLeftButtonUp="Click_News" />
+            <TextBlock Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" Margin="15,0,0,0" MouseLeftButtonUp="Click_Shedule" />
             <TextBlock Text="Оценки" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
         </StackPanel>
 

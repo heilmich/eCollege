@@ -119,39 +119,46 @@
         <Grid  Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition MinWidth="280" Width="0.3*"/>
                 <ColumnDefinition Width="15"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="0"/>
                 <RowDefinition/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="0"/>
             </Grid.RowDefinitions>
             <ListView Name="lvUsers" Grid.Column="1" BorderBrush="White" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Padding="10" SelectionChanged="SelectionChanged_lvUsers">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="42">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.3*"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding User.Image, Converter={StaticResource ImageConverter}}"/>
-                            <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
-                                <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="0,0,0,2" FontFamily="Calibri" FontSize="15">
-                                    <Run Text="{Binding User.UserType.Title}"/>
-                                </TextBlock>
-                                <TextBlock VerticalAlignment="Top" TextWrapping="Wrap">
-                                    <Run Text="{Binding User.LastName}"/>
-                                    <Run Text="{Binding User.FirstName}"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </Grid>
+                        <Border MinHeight="42" Width="Auto" HorizontalAlignment="Stretch" BorderThickness="1" CornerRadius="7" BorderBrush="Gray" Padding="15,12">
+                            <Grid Height="42">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding User.Image, Converter={StaticResource ImageConverter}}"/>
+                                <StackPanel Margin="10,0,0,0" Grid.Column="1" Orientation="Vertical">
+                                    <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="0,0,0,2" FontFamily="Calibri" FontSize="15">
+                                        <Run Text="{Binding User.UserType.Title}"/>
+                                    </TextBlock>
+                                    <TextBlock VerticalAlignment="Top" TextWrapping="Wrap">
+                                        <Run Text="{Binding User.LastName}"/>
+                                        <Run Text="{Binding User.FirstName}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
             
             <Rectangle Width="1" Fill="Gray" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center"/>
@@ -186,7 +193,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.Row="2" Grid.Column="3">
+            <Grid Height="45" VerticalAlignment="Center" Grid.Row="2" Grid.Column="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="0.2*"/>

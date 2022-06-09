@@ -40,6 +40,7 @@ namespace eCollege
         public static ShedulePage shedulePage;
         public static MarksPage marksPage;
         public static TeacherMarksPage teacherMarksPage;
+        public static NewsPage newsPage;
 
 
         public static User currentUser;
@@ -57,7 +58,6 @@ namespace eCollege
             profilePage = new ProfilePage();
             shedulePage = new ShedulePage();
             messengerPage = new MessengerPage();
-            
 
             InitializeComponent();
 
@@ -130,6 +130,12 @@ namespace eCollege
         private void Click_Message(object sender, MouseButtonEventArgs e)
         {
             mainFrame.Navigate(messengerPage);
+        }
+
+        private void Click_News(object sender, MouseButtonEventArgs e)
+        {
+            newsPage = new NewsPage();
+            mainFrame.Navigate(newsPage);
         }
     }
 }
