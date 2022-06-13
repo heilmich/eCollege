@@ -85,7 +85,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
                 <Button Margin="10,0,0,0" x:Name="SaveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Сохранить" Click="SaveBTN_Click"></Button>
-                <Button Margin="10,0,0,0" x:Name="DeleteBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить" Click="DeleteBTN_Click"></Button>
+                <Button Margin="10,0,0,0" x:Name="DeleteBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить"></Button>
             </StackPanel>
         </Grid>
     </Border>

@@ -70,12 +70,12 @@ namespace eCollege
             dayList.Clear();
 
 
+            ObservableCollection<Lesson> listLesson = new ObservableCollection<Lesson>(MainWindow.lessonsList);
             for (DateTime i = startDay; i.DayOfYear < endDay.DayOfYear; i = i.AddDays(1))
             {
                 SchoolDay day = new SchoolDay();
 
-                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(MainWindow.lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear).OrderBy(p => p.OrderInShedule));
-                
+                var list = listLesson.Where(p => p.Date.DayOfYear == i.DayOfYear).OrderBy(p => p.OrderInShedule);
 
                 ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
                 foreach (var item in list)
@@ -87,7 +87,7 @@ namespace eCollege
 
                 day.Date = i.Date;
                 day.Marks = listMark;
-                day.Lessons = list;
+                day.Lessons = listLesson;
                 dayList.Add(day);
             }
 
