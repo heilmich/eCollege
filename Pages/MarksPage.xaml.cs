@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using iText;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;

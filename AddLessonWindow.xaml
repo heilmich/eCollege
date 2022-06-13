@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
-        Title="AddLessonWindow" Height="600" Width="400" Background="#FF52C1FF">
+        Title="Добавить занятие" Height="500" Width="400" Background="#FF52C1FF">
     <Window.Resources>
         <Style x:Key="Link" TargetType="Label">
-            <Setter Property="Foreground" Value="#1d4ade"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#339fa3"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid >
@@ -72,7 +76,7 @@
                 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">
                     <TextBlock Text="Дата"/>
-                    <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></DatePicker>
+                    <DatePicker Name="DateDP" SelectedDate="{Binding Date, Mode=TwoWay}" MinWidth="100" Margin="12,0,0,0"></DatePicker>
                 </StackPanel>
                 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Right">

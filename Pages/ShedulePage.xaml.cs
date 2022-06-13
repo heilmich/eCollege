@@ -32,10 +32,18 @@ namespace eCollege
         {
             InitializeComponent();
             SetWeek();
-            UpdateSheduleAsync();
-
-            if      (MainWindow.currentUser.TypeId == 2) dgMark.Visibility = Visibility.Collapsed;
-            else if (MainWindow.currentUser.TypeId == 3) GetGroups_cbGroup(); 
+            UpdateShedule();
+            mainSheduleGrid.ItemsSource = dayList;
+            if (MainWindow.currentUser.TypeId == 2)
+            {
+                dgMark.Visibility = Visibility.Collapsed;
+                dgHomeTask.IsReadOnly = false;
+            }
+            else if (MainWindow.currentUser.TypeId == 3)
+            {
+                dgLessons.IsReadOnly = false;
+                GetGroups_cbGroup();
+            }
         }
 
 
@@ -55,8 +63,6 @@ namespace eCollege
         public async void UpdateSheduleAsync()
         {
             await Task.Run(() => UpdateShedule());
-
-            mainSheduleGrid.ItemsSource = dayList;
         }
 
         public void UpdateShedule()
@@ -68,7 +74,8 @@ namespace eCollege
             {
                 SchoolDay day = new SchoolDay();
 
-                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(MainWindow.lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear));
+                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(MainWindow.lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear).OrderBy(p => p.OrderInShedule));
+                
 
                 ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
                 foreach (var item in list)
@@ -83,6 +90,8 @@ namespace eCollege
                 day.Lessons = list;
                 dayList.Add(day);
             }
+
+            
         }
 
         private void GetGroups_cbGroup() 
@@ -91,14 +100,14 @@ namespace eCollege
             cbGroup.ItemsSource = Entities.GetContext().Group.ToList();
         }
 
-        private void Click_PreviousWeek(object sender, MouseButtonEventArgs e)
+        private void Click_PreviousWeek(object sender, RoutedEventArgs e)
         {
             startDay = startDay.AddDays(-7);
             SetWeek();
             UpdateShedule();
         }
 
-        private void Click_NextWeek(object sender, MouseButtonEventArgs e)
+        private void Click_NextWeek(object sender, RoutedEventArgs e)
         {
             startDay = startDay.AddDays(7);
             SetWeek();
@@ -112,21 +121,40 @@ namespace eCollege
             UpdateShedule();
         }
 
-        private void BeginningEdit_dgLessons(object sender, DataGridBeginningEditEventArgs e)
+
+        private void dgLessons_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            
+        }
+
+        private void dgLessons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainWindow.currentUser.TypeId != 3) return;
-            if ((Lesson)((DataGrid)sender).SelectedItem != null) 
-            { 
-                AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem);
-                addLessonWindow.ShowDialog();
-            } else 
+            if (((Lesson)((DataGrid)sender).SelectedItem).Id > 0)
             {
-                AddLessonWindow addLessonWindow = new AddLessonWindow();
-                addLessonWindow.ShowDialog();
+                AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem, this);
+                if (addLessonWindow.ShowDialog() == true) UpdateShedule();
             }
+            else
+            {
+                AddLessonWindow addLessonWindow = new AddLessonWindow((SchoolDay)mainSheduleGrid.SelectedItem, this);
+                if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+            }
+        }
 
-            UpdateShedule();
-            
+        private void dgHomeTask_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (MainWindow.currentUser.TypeId != 2) return;
+
+            var lesson = e.Row.Item as Lesson;
+            string hometask = lesson.HomeTask;
+
+            if (lesson == null) return;
+
+            Entities.GetContext().Lesson.Find(lesson.Id).HomeTask = hometask;
+
+            Entities.GetContext().SaveChanges();
+            MessageBox.Show($"Обновлено {lesson.Id} + {hometask}");
         }
     }
 }

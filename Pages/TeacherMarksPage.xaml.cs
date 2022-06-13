@@ -28,7 +28,11 @@ namespace eCollege
         public Subject currentSubject;
         public Student currentStudent;
         public Teacher currentTeacher;
-        public ObservableCollection<StudMark> studMarks = new ObservableCollection<StudMark>();
+        public ObservableCollection<Student> studentList = new ObservableCollection<Student>();
+        public ObservableCollection<Subject> subjectList = new ObservableCollection<Subject>();
+        public ObservableCollection<Group> groupList = new ObservableCollection<Group>();
+        public ObservableCollection<StudMark> studMarks = new ObservableCollection<StudMark>(); // оценки студента
+
 
         //public ObservableCollection<StudSubjMarks> subjMarks = new ObservableCollection<StudSubjMarks>();
         //public ObservableCollection<MarkLesson> markLessons = new ObservableCollection<MarkLesson>();
@@ -37,7 +41,16 @@ namespace eCollege
         {
             InitializeComponent();
             currentTeacher = MainWindow.currentTeacher;
+            SetCBData();
+            marksGrid.ItemsSource = studMarks;
             GetDataGroup();
+        }
+
+        public void SetCBData() 
+        {
+            cbGroup.ItemsSource = groupList;
+            cbStudent.ItemsSource = studentList;
+            cbSubject.ItemsSource = subjectList;
         }
 
         public void GetDataMarks() 
@@ -59,81 +72,47 @@ namespace eCollege
                 studMarks.Add(stud);
             }
 
-            marksGrid.ItemsSource = studMarks;
+            
         }
 
 
-        /* public void GetDataMarkss() 
-        {
-            subjMarks.Clear();
-            marksGrid.Columns.Clear();
-            
-
-            
-            var list = new ObservableCollection<Lesson>(Entities.GetContext().Lesson.Where(p => p.Teacher.Id == MainWindow.currentTeacher.Id && p.Group.Id == currentGroup.Id && p.Subject.Id == currentSubject.Id));
-
-            
-
-            foreach (var student in currentGroup.Student)
-            {
-                StudSubjMarks stud = new StudSubjMarks();
-                stud.student = student;
-                stud.marks = new ObservableCollection<Mark>(Entities.GetContext().Mark.Where(p => p.Lesson.Teacher == MainWindow.currentTeacher && p.Student == stud.student && p.Lesson.Subject == currentSubject));
-                ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
-                foreach (var item in list)
-                {
-                    var it = MainWindow.marksList.Where(p => p.LessonId == item.Id).FirstOrDefault();
-                    if (it == null) it = new Mark();
-                    listMark.Add(it);
-                }
-                subjMarks.Add(stud);
-            }
-
-            foreach(var item in list) 
-            {
-                MarkLesson mark = new MarkLesson();
-                mark.Date = item.Date;
-                mark.students = subjMarks;
-                markLessons.Add(mark);
-                DataGridTextColumn col = new DataGridTextColumn();
-                Binding bind = new Binding();
-                bind.Source = mark;
-                col.Binding = bind;
-                Binding bindHeader = new Binding();
-                bindHeader.Source = mark.Date;
-                col.Header = bindHeader;
-                marksGrid.Columns.Add(col);
-            }
-
-
-            marksGrid.ItemsSource = markLessons;
-        } */
-
         public void GetDataGroup() 
         {
-            cbGroup.ItemsSource = Entities.GetContext().Group.SqlQuery("SELECT * FROM [Group] " +
+            groupList.Clear();
+            foreach(var item in (new ObservableCollection<Group>( Entities.GetContext().Group.SqlQuery("SELECT * FROM [Group] " +
                                                                                 "WHERE Id IN ( " +
                                                                                 "SELECT Lesson.GroupId FROM Lesson JOIN Teacher ON Lesson.TeacherId = Teacher.Id " +
                                                                                 $"WHERE Teacher.Id = {MainWindow.currentTeacher.Id} ) ")
-                                                                                .ToList();
+                                                                                .ToList()))) 
+            {
+                groupList.Add(item);
+            }
             
         } 
 
         public void GetDataSubject() 
         {
-            cbSubject.ItemsSource = Entities.GetContext().Subject.SqlQuery("SELECT * FROM Subject " +
+            subjectList.Clear();
+            foreach(var item in (new ObservableCollection<Subject>( Entities.GetContext().Subject.SqlQuery("SELECT * FROM Subject " +
                                                                                 "WHERE Subject.Id IN ( " +
                                                                                 "SELECT SubjectId FROM Lesson JOIN Teacher ON Lesson.TeacherId = Teacher.Id " +
                                                                                 "  " +
                                                                                 $"WHERE Teacher.Id = {MainWindow.currentTeacher.Id} AND Lesson.GroupId = {currentGroup.Id} ) ")
-                                                                                .ToList();
+                                                                                .ToList()))) 
+            {
+                subjectList.Add(item);
+            }
         }
 
         public void GetDataStudent() 
         {
-            cbStudent.ItemsSource = Entities.GetContext().Student.SqlQuery("SELECT * FROM Student " +
+            studentList.Clear();
+            foreach(var item in (new ObservableCollection<Student>( Entities.GetContext().Student.SqlQuery("SELECT * FROM Student " +
                                                                                 $"WHERE GroupId = {currentGroup.Id} ")
-                                                                                .ToList(); ;
+                                                                                .ToList()))) 
+            {
+                studentList.Add(item);
+            }
         }
 
         private void SelectionChanged_cbGroup(object sender, SelectionChangedEventArgs e)
@@ -146,6 +125,7 @@ namespace eCollege
         {
             currentSubject = (Subject)(cbSubject.SelectedItem);
             GetDataStudent();
+            studMarks.Clear();
         }
 
         private void SelectionChanged_cbStudent(object sender, SelectionChangedEventArgs e) 

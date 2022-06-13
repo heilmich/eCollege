@@ -22,10 +22,14 @@ namespace eCollege
             openFileDialog.Multiselect = false;
             openFileDialog.Title = "Выберите изображение";
             openFileDialog.ShowDialog();
-            if (openFileDialog.FileName != null)
+            if (openFileDialog.FileName != null) 
+            {
                 picstr = Serialize(openFileDialog.FileName);
+                return picstr;
+            }
+            
             else MessageBox.Show("Вы не выбрали изображение");
-            return picstr;
+            return null;
         }
         public static string Serialize(string path) // сериализация в строку
         {

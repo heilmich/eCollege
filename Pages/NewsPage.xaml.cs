@@ -40,7 +40,7 @@ namespace eCollege
 
         public ObservableCollection<News> GetNews() 
         {
-            newsList = new ObservableCollection<News>(Entities.GetContext().News.ToList());
+            newsList = new ObservableCollection<News>(Entities.GetContext().News.OrderByDescending(p => p.Id).ToList());
             return newsList;
         }
 

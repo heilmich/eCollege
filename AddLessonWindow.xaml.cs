@@ -24,27 +24,31 @@ namespace eCollege
         public Group selectedGroup;
         public Teacher selectedTeacher;
         public Subject selectedSubject;
+        public ShedulePage shedulePage;
 
         // Создание окна для нового урока
-        public AddLessonWindow()
+        public AddLessonWindow(SchoolDay schoolDay, ShedulePage shedulePage)
         {
             InitializeComponent();
 
             currentLesson = new Lesson();
-            currentLesson.Date = DateTime.Today.AddDays(1);
+            currentLesson.Date = schoolDay.Date;
+            currentLesson.OrderInShedule = 1;
+            this.shedulePage = shedulePage;
             this.DataContext = currentLesson;
-
+            this.DialogResult = false;
             GetData();
         }
 
         // Создание окна для существующего урока
-        public AddLessonWindow(Lesson lesson)
+        public AddLessonWindow(Lesson lesson, ShedulePage shedulePage)
         {
             InitializeComponent();
 
             currentLesson = lesson;
             this.DataContext = currentLesson;
-
+            this.shedulePage = shedulePage;
+            this.Title = "Редактировать занятие";
             GetData();
         }
 
@@ -53,6 +57,7 @@ namespace eCollege
         {
             cbGroup.ItemsSource = Entities.GetContext().Group.ToList();
             cbSubject.ItemsSource = Entities.GetContext().Subject.ToList();
+            cbSubject.SelectedItem = currentLesson.Subject;
             cbTeacher.ItemsSource = Entities.GetContext().Teacher.ToList();
         }
 
@@ -65,11 +70,18 @@ namespace eCollege
                 currentLesson.GroupId = selectedGroup.Id;
                 currentLesson.SubjectId = selectedSubject.Id;
 
+                if (Entities.GetContext().Lesson.Where(p => p.Group.Id == selectedGroup.Id && p.OrderInShedule == currentLesson.OrderInShedule && p.Date == currentLesson.Date && p.Id != currentLesson.Id).Count() > 0) 
+                {
+                    MessageBox.Show("Урок с очередью в расписании " + currentLesson.OrderInShedule + " уже существует.");
+                    return;
+                }
+
                 // Если урока не существует, тогда добавляем новый
                 if (Entities.GetContext().Lesson.Find(currentLesson.Id) == null) Entities.GetContext().Lesson.Add(currentLesson);
-
                 Entities.GetContext().SaveChanges();
                 MessageBox.Show("Урок добавлен.");
+                this.DialogResult = true;
+                this.Close();
             } catch (Exception ex) 
             {
                 MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);

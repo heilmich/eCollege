@@ -1,0 +1,96 @@
+﻿<Page x:Class="eCollege.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:eCollege"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="UsersPage">
+    <Page.Resources>
+        <local:ImageConverter x:Key="ImageConverter"/>
+    </Page.Resources>
+    <Border Background="White" BorderBrush="Gray" BorderThickness="0.8,0,0.8,0.8" VerticalAlignment="Top" MinHeight="500">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <ListView SelectionMode="Single" x:Name="lvUsers" Grid.Row="1" Grid.Column="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="0.8"  Height="100" Padding="10">
+                            <Grid Height="100">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="0.4*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"/>
+                                <StackPanel Orientation="Vertical" Grid.Column="1">
+                                    <TextBlock >
+                                        <Run Text="ID: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Id}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Логин: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Login}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Пароль: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Password}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Тип: " FontWeight="Bold"/>
+                                        <Run Text="{Binding UserType.Title}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Column="2">
+                                    <TextBlock >
+                                        <Run Text="Фамилия: " FontWeight="Bold"/>
+                                        <Run Text="{Binding LastName}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Имя: " FontWeight="Bold"/>
+                                        <Run Text="{Binding FirstName}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Отчество: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Patronymic}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="Пол: " FontWeight="Bold"/>
+                                        <Run Text="{Binding Gender}"/>
+                                    </TextBlock>
+                                    <TextBlock >
+                                        <Run Text="{Binding BirthDate}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="15"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                <Button Style="{StaticResource ButtonStyle1}" Height="30" Content="Добавить пользователя" Name="addUserBTN" Click="addUserBTN_Click"/>
+                <Button Style="{StaticResource ButtonStyle1}" Height="30" Margin="15,0,0,0" Content="Редактировать пользователя" Name="editUserBTN" Click="editUserBTN_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Page>

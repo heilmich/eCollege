@@ -14,8 +14,27 @@
             <Setter Property="MinWidth" Value="100"/>
         </Style>
         <Style x:Key="Link" TargetType="Label">
-            <Setter Property="Foreground" Value="#1d4ade"/>
+            <Setter Property="Foreground" Value="#339fa3"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="TBLink" TargetType="TextBlock">
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Foreground" Value="#dbfdff"/>
+                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="IMGLink" TargetType="Image">
+            <Setter Property="Opacity" Value="0.92"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <local:ImageConverter x:Key="ImageConverter"/>
         <local:AllMarksConverter x:Key="AllMarksConverter"/>
@@ -24,15 +43,15 @@
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD3F0FF"/>
-            <GradientStop Color="#FF52C1FF" Offset="1"/>
+            <GradientStop Color="#FFD7F2FF"  Offset="1"/>
+            <GradientStop Color="#FF52C1FF"/>
         </LinearGradientBrush>
     </Window.Background>
 
     <Grid Name="mainGrid">
 
         <Grid.Background>
-            <ImageBrush Opacity="0.7" ImageSource="/background.png" Stretch="UniformToFill" TileMode="FlipXY"/>
+            <ImageBrush Opacity="0.6" ImageSource="/background.png" Stretch="UniformToFill" TileMode="FlipXY"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -49,19 +68,20 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Border BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="1" Grid.ColumnSpan="5" Background="#0072BC">
+        <Border BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="1" Grid.ColumnSpan="5" Background="#4ca8d9">
 
         </Border>
 
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <TextBlock Text="Новости" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbNews" MouseLeftButtonUp="Click_News" />
-            <TextBlock Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" Margin="15,0,0,0" MouseLeftButtonUp="Click_Shedule" />
-            <TextBlock Text="Оценки" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
+            <TextBlock Style="{StaticResource TBLink}" Text="Новости" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbNews" MouseLeftButtonUp="Click_News" />
+            <TextBlock Style="{StaticResource TBLink}" Text="Расписание" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbShedule" Margin="15,0,0,0" MouseLeftButtonUp="Click_Shedule" />
+            <TextBlock Style="{StaticResource TBLink}" Text="Оценки" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbMarks" Margin="15,0,0,0" MouseLeftButtonUp="Click_Marks" />
+            <TextBlock Style="{StaticResource TBLink}" Text="Пользователи" FontFamily="Segoe UI" FontWeight="DemiBold" Name="tbUsers" Margin="15,0,0,0" MouseLeftButtonUp="Click_Users" Visibility="Collapsed"/>
         </StackPanel>
 
         <StackPanel Panel.ZIndex="2" Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Height="50" VerticalAlignment="Center">
-            <Image Name="imgMessage" Source="message.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Message"/>
-            <Image Margin="15,0,0,0" Source="profile.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Profile"/>
+            <Image Style="{StaticResource IMGLink}" Name="imgMessage" Source="message.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Message"/>
+            <Image Style="{StaticResource IMGLink}" Margin="15,0,0,0" Source="profile.png" Stretch="Uniform" MinHeight="25" Height="40" MouseLeftButtonUp="Click_Profile"/>
         </StackPanel>
 
         <Frame Grid.Column="1"  Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" Name="mainFrame" NavigationUIVisibility="Hidden" />

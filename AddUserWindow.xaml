@@ -1,0 +1,81 @@
+﻿<Window x:Class="eCollege.AddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:eCollege"
+        mc:Ignorable="d"
+        Title="Добавить пользователя" MinHeight="600" MinWidth="500" Height="600" Width="500" Background="#FF52C1FF">
+    <Grid x:Name="userGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <Border  Padding="13" Background="White" Grid.Column="1" CornerRadius="5" MinHeight="80" BorderBrush="Gray" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="3" Grid.Row="1" Orientation="Vertical">
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Логин"/>
+                    <TextBox x:Name="tbLogin" Text="{Binding Login, Mode=TwoWay}" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400"/>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Пароль"/>
+                    <TextBox x:Name="tbPassword" Text="{Binding Password, Mode=TwoWay}" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400"/>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Тип"/>
+                    <ComboBox SelectionChanged="cbUserType_SelectionChanged" Name="cbUserType" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Title}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Группа"/>
+                    <ComboBox Name="cbGroup" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Фамилия"/>
+                    <TextBox x:Name="tbLastName" Text="{Binding LastName, Mode=TwoWay}" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400"/>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Имя"/>
+                    <TextBox x:Name="tbFirstName" Text="{Binding FirstName, Mode=TwoWay}" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400"/>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Отчество"/>
+                    <TextBox x:Name="tbPatronymic" Text="{Binding Patronymic, Mode=TwoWay}" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400"/>
+                </WrapPanel>
+                <WrapPanel VerticalAlignment="Top">
+                    <TextBlock Padding="5,5" TextWrapping="Wrap" Width="100" VerticalAlignment="Top" Text="Пол"/>
+                    <ComboBox Name="cbGender" VerticalAlignment="Center" MinHeight="25" MinWidth="300" MaxWidth="400">
+                        <ComboBoxItem Content="Мужской"/>
+                        <ComboBoxItem Content="Женский"/>
+                    </ComboBox>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                    <Button x:Name="SaveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Сохранить" Click="SaveBTN_Click"></Button>
+                    <Button x:Name="RemoveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить" Margin="20,0,0,0" Click="RemoveBTN_Click"></Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>

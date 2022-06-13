@@ -21,7 +21,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Animation;
 
 namespace eCollege
-{   
+{
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -41,6 +41,7 @@ namespace eCollege
         public static MarksPage marksPage;
         public static TeacherMarksPage teacherMarksPage;
         public static NewsPage newsPage;
+        public static UsersPage usersPage;
 
 
         public static User currentUser;
@@ -61,10 +62,11 @@ namespace eCollege
 
             InitializeComponent();
 
-            if (currentUser.TypeId == 3) 
+            if (currentUser.TypeId == 3)
             {
                 tbMarks.Visibility = Visibility.Collapsed;
                 imgMessage.Visibility = Visibility.Collapsed;
+                tbUsers.Visibility = Visibility.Visible;
             }
 
             NavigateProfile();
@@ -72,7 +74,7 @@ namespace eCollege
         }
 
 
-        public void NavigateProfile() 
+        public void NavigateProfile()
         {
             GetData();
             mainFrame.Navigate(profilePage);
@@ -84,18 +86,18 @@ namespace eCollege
             else if (currentUser.TypeId == 2) GetDataTeacher();
         }
 
-        public static void UpdateUser(int userId) 
+        public static void UpdateUser(int userId)
         {
             currentUser = db.User.Find(userId);
         }
-        public static void GetDataTeacher() 
+        public static void GetDataTeacher()
         {
             currentTeacher = currentUser.Teacher.First();
             lessonsList = currentTeacher.Lesson.ToList();
             teacherMarksPage = new TeacherMarksPage();
         }
-        
-        public static void GetDataStudent() 
+
+        public static void GetDataStudent()
         {
             currentStudent = currentUser.Student.First();
             lessonsList = currentStudent.Group.Lesson.ToList();
@@ -103,6 +105,7 @@ namespace eCollege
             subjectsList = currentStudent.Group.Lesson.Select(p => p.Subject).Distinct().ToList();
             marksPage = new MarksPage();
         }
+
 
         private void Click_Profile(object sender, MouseButtonEventArgs e)
         {
@@ -136,6 +139,11 @@ namespace eCollege
         {
             newsPage = new NewsPage();
             mainFrame.Navigate(newsPage);
+        }
+        private void Click_Users(object sender, MouseButtonEventArgs e)
+        {
+            usersPage = new UsersPage();
+            mainFrame.Navigate(usersPage);
         }
     }
 }

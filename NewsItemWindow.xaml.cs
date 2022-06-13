@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace eCollege
     {
         public News newsItem;
         public bool isNewsCreated = false;
+        public NewsPhoto newsPhoto;
         public NewsItemWindow()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace eCollege
             InitializeComponent();
             this.newsItem = newsItem;
             SetDataContext();
+            
             this.Title = "Редактировать новость";
             titleTB.Text = "Редактировать новость";
             isNewsCreated = true;
@@ -41,6 +44,8 @@ namespace eCollege
         public void SetDataContext() 
         {
             NewsItemGrid.DataContext = newsItem;
+            PhotoLV.ItemsSource = newsItem.NewsPhoto;
+            
         }
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
@@ -56,6 +61,52 @@ namespace eCollege
                 newsItem.Date = DateTime.Now;
             }
             Entities.GetContext().SaveChangesAsync();
+            MessageBox.Show("Новость сохранена");
+            this.Close();
+        }
+
+        private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string picstr = Image.SerializeFromDialog();
+                if (picstr == null) return;
+                else 
+                {
+                    NewsPhoto newsPhoto = new NewsPhoto();
+                    newsPhoto.Photo = picstr;
+                    newsPhoto.NewsId = newsItem.Id;
+                    Entities.GetContext().NewsPhoto.Add(newsPhoto);
+                    Entities.GetContext().SaveChanges();
+
+                    MessageBox.Show("Изображение изменено");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
+            }
+        }
+
+        private void NewsPhoto_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = PhotoLV.SelectedItem as NewsPhoto;
+            if (item == null) return;
+            if (!newsItem.NewsPhoto.Remove(item)) return;
+            Entities.GetContext().SaveChanges();
+            MessageBox.Show("Фото удалено");
+                
+            
+        }
+
+        private void RemovePhotoBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var item = PhotoLV.SelectedItem as NewsPhoto;
+            if (item == null) return;
+            Entities.GetContext().NewsPhoto.Remove(item);
+            Entities.GetContext().SaveChanges();
+            //PhotoLV.Items.Remove(PhotoLV.SelectedItem);
+            MessageBox.Show("Фото удалено");
         }
     }
 }

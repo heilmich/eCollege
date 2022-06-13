@@ -111,8 +111,8 @@
             </Style.Triggers>
         </Style>
     </Page.Resources>
-    
-    <Border BorderBrush="Gray" BorderThickness="0.8" VerticalAlignment="Top" MinHeight="400">
+
+    <Border BorderBrush="Gray" BorderThickness="0.8,0,0.8,0.8" VerticalAlignment="Top" MinHeight="400">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
         </Border.Effect>
