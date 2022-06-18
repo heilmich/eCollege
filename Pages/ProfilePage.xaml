@@ -37,7 +37,7 @@
                 <RowDefinition Height="0.7*"/>
                 <RowDefinition Height="12"/>
             </Grid.RowDefinitions>
-            <Border MinHeight="250" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <Border MinHeight="250" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Padding="14" BorderBrush="Gray" BorderThickness="0.8, 0, 0.8, 0.8" Background="White">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
                 </Border.Effect>
@@ -63,7 +63,7 @@
                     <Label Content="Редактировать фото"  Style="{StaticResource Link}" VerticalAlignment="Bottom" FontSize="15" MinHeight="20" Grid.Row="2" MouseLeftButtonUp="Click_LabelEditPhoto"/>
                 </Grid>
             </Border>
-            <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+            <Border MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="2" BorderBrush="Gray" BorderThickness="0.8, 0, 0.8, 0.8" Background="White" Padding="14">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
                 </Border.Effect>
@@ -95,7 +95,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Border Name="marksBorder" MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="1" Background="White" Padding="14">
+            <Border Name="marksBorder" MinHeight="230" VerticalAlignment="Top" Grid.Row="0" Grid.Column="4" BorderBrush="Gray" BorderThickness="0.8, 0, 0.8, 0.8" Background="White" Padding="14">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
                 </Border.Effect>

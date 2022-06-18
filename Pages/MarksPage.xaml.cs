@@ -26,38 +26,67 @@ namespace eCollege
     /// </summary>
     public partial class MarksPage : Page
     {
+        public DateTime startDay = new DateTime();
+        public DateTime endDay = new DateTime();
+
+        public DateTime firstDayOfStudying;
+        public DateTime lastDayOfStudying;
+        public ObservableCollection<SubjectMark> smList = new ObservableCollection<SubjectMark>();
 
         public Document document;
 
         public MarksPage()
         {
-            InitializeComponent();
-            UpdateMarks();
+            try 
+            {
+                InitializeComponent();
+                finalMarksGrid.ItemsSource = smList;
+
+                firstDayOfStudying = MainWindow.currentStudent.Mark.OrderBy(p => p.Lesson.Date).First().Lesson.Date;
+                if (firstDayOfStudying == null) return;
+                startDay = firstDayOfStudying;
+                StartDayDP.SelectedDate = firstDayOfStudying;
+
+                lastDayOfStudying = MainWindow.currentStudent.Mark.OrderByDescending(p => p.Lesson.Date).First().Lesson.Date;
+                if (lastDayOfStudying == null) return;
+                EndDayDP.SelectedDate = lastDayOfStudying;
+                endDay = lastDayOfStudying;
+                UpdateMarks();
+            }
             
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Возникла ошибка! \n{ex.Message}\nОбратитесь к системному администратору");
+            }
         }
 
 
 
         public void UpdateMarks()
         {
-            MainWindow.subjectMarks.Clear();
+            smList.Clear();
+            if (startDay > endDay) 
+            {
+                MessageBox.Show("Дата начала больше даты конца");
+                return;
+            }
 
             foreach (var item in MainWindow.subjectsList)
             {
                 SubjectMark sm = new SubjectMark();
                 sm.SubjectTitle = item.Title;
-                sm.Marks = new ObservableCollection<Mark>(MainWindow.currentStudent.Mark.Where(p => p.Lesson.Subject == item));
-                MainWindow.subjectMarks.Add(sm);
+                sm.Marks = new ObservableCollection<Mark>(MainWindow.currentStudent.Mark
+                    .Where(p => p.Lesson.Subject == item)
+                    .Where(p => p.Lesson.Date >= startDay && p.Lesson.Date <= endDay));
+                smList.Add(sm);
             }
-
-            finalMarksGrid.ItemsSource = MainWindow.subjectMarks;
         }
 
         public void CreateDocument(object sender, RoutedEventArgs e) 
         {
             document = new Document();
 
-            string docstr = null;
+            
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "PDF files (*.pdf)|*.pdf;";
@@ -118,5 +147,11 @@ namespace eCollege
            
         }
 
+        private void SearchBTN_Click(object sender, RoutedEventArgs e)
+        {
+            startDay = (DateTime)StartDayDP.SelectedDate;
+            endDay = (DateTime)EndDayDP.SelectedDate;
+            UpdateMarks();
+        }
     }
 }

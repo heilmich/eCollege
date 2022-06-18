@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
+        Icon="logo.png"
         Title="Добавить новость" MinHeight="700" MinWidth="600" Height="700" Width="700" Background="#FF52C1FF">
     <Window.Resources>
         <Style x:Key="Link" TargetType="Label">
@@ -85,7 +86,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
                 <Button Margin="10,0,0,0" x:Name="SaveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Сохранить" Click="SaveBTN_Click"></Button>
-                <Button Margin="10,0,0,0" x:Name="DeleteBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить"></Button>
+                <Button Margin="10,0,0,0" x:Name="DeleteBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить" Click="DeleteBTN_Click"></Button>
             </StackPanel>
         </Grid>
     </Border>

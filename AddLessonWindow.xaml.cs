@@ -32,11 +32,13 @@ namespace eCollege
             InitializeComponent();
 
             currentLesson = new Lesson();
+            DateDP.SelectedDate = schoolDay.Date;
             currentLesson.Date = schoolDay.Date;
+            
             currentLesson.OrderInShedule = 1;
             this.shedulePage = shedulePage;
             this.DataContext = currentLesson;
-            this.DialogResult = false;
+            //this.DialogResult = false;
             GetData();
         }
 
@@ -44,7 +46,13 @@ namespace eCollege
         public AddLessonWindow(Lesson lesson, ShedulePage shedulePage)
         {
             InitializeComponent();
-
+            try 
+            {
+                cbSubject.SelectedItem = lesson.Subject;
+            }
+            catch (Exception ex) 
+            {
+            }
             currentLesson = lesson;
             this.DataContext = currentLesson;
             this.shedulePage = shedulePage;
@@ -62,7 +70,7 @@ namespace eCollege
         }
 
         // Добавление (обновление) занятия в базу данных
-        private void Click_lbAdd(object sender, MouseButtonEventArgs e)
+        private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -70,18 +78,33 @@ namespace eCollege
                 currentLesson.GroupId = selectedGroup.Id;
                 currentLesson.SubjectId = selectedSubject.Id;
 
-                if (Entities.GetContext().Lesson.Where(p => p.Group.Id == selectedGroup.Id && p.OrderInShedule == currentLesson.OrderInShedule && p.Date == currentLesson.Date && p.Id != currentLesson.Id).Count() > 0) 
+
+                var minOrder = 0; var maxOrder = 8;
+                if (currentLesson.OrderInShedule <= minOrder || currentLesson.OrderInShedule >= maxOrder) 
+                {
+                    MessageBox.Show($"Очередь в расписании некорректна.\nДоступные рамки: {minOrder} - {maxOrder}.\nВаше значение: {currentLesson.OrderInShedule}");
+                    return;
+                }
+
+                if (Entities.GetContext().Lesson.Where(p => p.Group.Id == selectedGroup.Id 
+                && p.OrderInShedule == currentLesson.OrderInShedule 
+                && p.Date == currentLesson.Date 
+                && p.Id != currentLesson.Id).Count() > 0) 
                 {
                     MessageBox.Show("Урок с очередью в расписании " + currentLesson.OrderInShedule + " уже существует.");
                     return;
                 }
 
                 // Если урока не существует, тогда добавляем новый
-                if (Entities.GetContext().Lesson.Find(currentLesson.Id) == null) Entities.GetContext().Lesson.Add(currentLesson);
+                if (Entities.GetContext().Lesson.Find(currentLesson.Id) == null) 
+                    Entities.GetContext().Lesson.Add(currentLesson);
+
                 Entities.GetContext().SaveChanges();
                 MessageBox.Show("Урок добавлен.");
+
                 this.DialogResult = true;
                 this.Close();
+
             } catch (Exception ex) 
             {
                 MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
@@ -101,6 +124,17 @@ namespace eCollege
         private void SelectionChanged_cbTeacher(object sender, SelectionChangedEventArgs e)
         {
             selectedTeacher = (Teacher)cbTeacher.SelectedItem;
+        }
+
+        private void RemoveBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var marks = Entities.GetContext().Mark.Where( p => p.Lesson == currentLesson);
+            foreach (var item in marks) 
+            {
+                Entities.GetContext().Mark.Remove(item);
+            }
+            Entities.GetContext().Lesson.Remove(currentLesson);
+            Entities.GetContext().SaveChanges();
         }
     }
 }

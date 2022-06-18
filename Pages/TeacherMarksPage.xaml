@@ -25,12 +25,11 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="17"/>
                 <RowDefinition/>
                 <RowDefinition Height="17"/>
             </Grid.RowDefinitions>
             
-            <StackPanel Grid.Column="1"  VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Height="32" VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal">
                 
                 <ComboBox Name="cbGroup" SelectedIndex="0" MinWidth="80" SelectionChanged="SelectionChanged_cbGroup">
                     <ComboBox.ItemTemplate>
@@ -58,9 +57,16 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                
+
+                <StackPanel MaxHeight="40" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
+                    
+                    <DatePicker SelectedDateChanged="StartDayDP_SelectedDateChanged" IsTodayHighlighted="True" Name="StartDayDP" Margin="20,0,0,0"/>
+                    <Label Content="-" Margin="20,0,0,0" FontSize="19"  VerticalContentAlignment="Center"/>
+                    <DatePicker SelectedDateChanged="EndDayDP_SelectedDateChanged" Name="EndDayDP"  Margin="20,0,0,0"/>
+                </StackPanel>
+
             </StackPanel>
-            <DataGrid MinHeight="250" Name="marksGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="2" FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" RowEditEnding="RowEditEnding_marksGrid">
+            <DataGrid MinHeight="250" Name="marksGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1" Grid.Row="1" FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" RowEditEnding="RowEditEnding_marksGrid">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Дата" Width="100" Binding="{Binding Date}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Оценка"  Binding="{Binding Mark1, Mode=TwoWay}"></DataGridTextColumn>

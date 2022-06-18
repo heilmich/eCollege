@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
+        Icon="logo.png"
         Title="Электронный журнал" MinHeight="650" MinWidth="1024" Height="700" Width="800" FontFamily="Calibri" FontSize="18" Foreground="White">
     <Window.Resources>
         <Style x:Key="lkTextBox" TargetType="TextBox">

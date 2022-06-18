@@ -64,7 +64,7 @@ namespace eCollege
             var list = ((ObservableCollection<Mark>)value).Where(p => p.Mark1 >= 1);
             if (list.Count() != 0)
             {
-                return list.Average(p => p.Mark1);
+                return Math.Round(list.Average(p => p.Mark1), 2);
             }
             else return null;
         }

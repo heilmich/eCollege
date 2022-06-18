@@ -67,7 +67,7 @@
             </StackPanel>
             <DataGrid EnableRowVirtualization="True" MinRowHeight="40" MinHeight="400" VerticalAlignment="Stretch" Name="mainSheduleGrid" Grid.Row="1" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" Grid.Column="1"  FontSize="14" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Дата" Width="50" Binding="{Binding MonthDay}" IsReadOnly="True">
+                    <DataGridTextColumn Header="Дата" Width="60" Binding="{Binding MonthDay}" IsReadOnly="True">
                         <DataGridTextColumn.HeaderStyle>
                             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DGColumnHeaderStyle}">
                                 <Setter Property="BorderThickness" Value="0,0,1,1"/>
@@ -77,7 +77,7 @@
                     <DataGridTemplateColumn x:Name="dgLessons" HeaderStyle="{StaticResource DGColumnHeaderStyle}"  Header="Предмет" MinWidth="150" Width="2*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <DataGrid IsReadOnly="True" EnableRowVirtualization="True" SelectionChanged="dgLessons_SelectionChanged" SelectionMode="Single" ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" GridLinesVisibility="None">
+                                <DataGrid  BeginningEdit="dgLessons_BeginningEdit" SelectionMode="Single" ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" GridLinesVisibility="None">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="0.03*" Binding="{Binding OrderInShedule}"/>
                                         <DataGridTextColumn Width="*" Binding="{Binding Subject.Title}"/>
@@ -103,6 +103,17 @@
                                 <DataGrid ItemsSource="{Binding Marks}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="*" Binding="{Binding Mark1,Converter={StaticResource MarkConverter}}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn HeaderStyle="{StaticResource DGColumnHeaderStyle}" x:Name="dgGroup" Header="Группа" Width="0.5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DataGrid IsReadOnly="True" ItemsSource="{Binding Lessons}" Background="White" BorderThickness="0" AutoGenerateColumns="False" HeadersVisibility="None" CanUserDeleteRows="False" CanUserAddRows="False" GridLinesVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="*" Binding="{Binding Group.Name}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </DataTemplate>

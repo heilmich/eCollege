@@ -50,19 +50,27 @@ namespace eCollege
 
         private void SaveBTN_Click(object sender, RoutedEventArgs e)
         {
-            if (isNewsCreated == false) 
+            try
             {
-                newsItem.AuthorId = MainWindow.currentUser.Id;
-                newsItem.Date = DateTime.Now;
-                Entities.GetContext().News.Add(newsItem);
+                if (isNewsCreated == false) 
+                {
+                    newsItem.AuthorId = MainWindow.currentUser.Id;
+                    newsItem.Date = DateTime.Now;
+                    Entities.GetContext().News.Add(newsItem);
+                }
+                else 
+                {
+                    newsItem.Date = DateTime.Now;
+                }
+                Entities.GetContext().SaveChangesAsync();
+                MessageBox.Show("Новость сохранена");
+                this.DialogResult = true;
+                this.Close();
             }
-            else 
+            catch (Exception ex)
             {
-                newsItem.Date = DateTime.Now;
+                MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
             }
-            Entities.GetContext().SaveChangesAsync();
-            MessageBox.Show("Новость сохранена");
-            this.Close();
         }
 
         private void AddPhotoBTN_Click(object sender, RoutedEventArgs e)
@@ -107,6 +115,15 @@ namespace eCollege
             Entities.GetContext().SaveChanges();
             //PhotoLV.Items.Remove(PhotoLV.SelectedItem);
             MessageBox.Show("Фото удалено");
+        }
+
+        private void DeleteBTN_Click(object sender, RoutedEventArgs e)
+        {
+            Entities.GetContext().News.Remove(newsItem);
+            Entities.GetContext().SaveChanges();
+            MessageBox.Show("Новость удалена");
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

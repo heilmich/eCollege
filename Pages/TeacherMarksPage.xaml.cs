@@ -24,6 +24,10 @@ namespace eCollege
     
     public partial class TeacherMarksPage : Page
     {
+        public DateTime startDay;
+        public DateTime endDay;
+        public DateTime firstDayOfStudying;
+        public DateTime lastDayOfStudying;
         public Group currentGroup;
         public Subject currentSubject;
         public Student currentStudent;
@@ -41,6 +45,17 @@ namespace eCollege
         {
             InitializeComponent();
             currentTeacher = MainWindow.currentTeacher;
+
+            firstDayOfStudying = new DateTime(2010, 01, 01);
+            if (firstDayOfStudying == null) return;
+            startDay = firstDayOfStudying;
+            StartDayDP.SelectedDate = firstDayOfStudying;
+
+            lastDayOfStudying = new DateTime(2040, 01, 01);
+            if (lastDayOfStudying == null) return;
+            endDay = lastDayOfStudying;
+            EndDayDP.SelectedDate = lastDayOfStudying;
+
             SetCBData();
             marksGrid.ItemsSource = studMarks;
             GetDataGroup();
@@ -55,16 +70,33 @@ namespace eCollege
 
         public void GetDataMarks() 
         {
+            
+            if (startDay > endDay)
+            {
+                MessageBox.Show("Дата начала позднее даты конца");
+                return;
+            }
+
             if (currentStudent == null || currentGroup == null || currentSubject == null) return;
+
             studMarks.Clear();
-            var list = Entities.GetContext().Lesson.Where( p => p.Teacher.Id == MainWindow.currentTeacher.Id && p.SubjectId == currentSubject.Id && p.GroupId == currentGroup.Id).ToList();
+
+            var list = Entities.GetContext().Lesson.Where( p => p.Teacher.Id == MainWindow.currentTeacher.Id 
+                && p.SubjectId == currentSubject.Id 
+                && p.GroupId == currentGroup.Id)
+                .Where(p => p.Date >= startDay 
+                    && p.Date <= endDay)
+                .ToList();
+
             foreach(var item in list) 
             {
                 StudMark stud = new StudMark();
 
                 stud.Student = currentStudent;
                 stud.Lesson = item;
-                stud.Mark = Entities.GetContext().Mark.Where(p => p.StudentId == stud.Student.Id && p.LessonId == item.Id).DefaultIfEmpty().First();
+                stud.Mark = Entities.GetContext().Mark
+                    .Where(p => p.StudentId == stud.Student.Id && p.LessonId == item.Id)
+                    .DefaultIfEmpty().First();
                 if (stud.Mark == null) stud.SetMark();
                 stud.Mark1 = stud.Mark.Mark1;
                 stud.Date = item.Date;
@@ -125,7 +157,7 @@ namespace eCollege
         {
             currentSubject = (Subject)(cbSubject.SelectedItem);
             GetDataStudent();
-            studMarks.Clear();
+            
         }
 
         private void SelectionChanged_cbStudent(object sender, SelectionChangedEventArgs e) 
@@ -157,5 +189,16 @@ namespace eCollege
             //var mark = Entities.GetContext().Mark.Where( p => p.StudentId == stud.Student.Id && p.LessonId == stud.Lesson.Id);
         }
 
+        private void StartDayDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            startDay = (DateTime)StartDayDP.SelectedDate;
+            GetDataMarks();
+        }
+
+        private void EndDayDP_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            endDay = (DateTime)EndDayDP.SelectedDate;
+            GetDataMarks();
+        }
     }
 }

@@ -26,10 +26,10 @@ namespace eCollege
         {
             InitializeComponent();
             SetCB();
+            currentUser = new User();
             cbUserType.SelectedIndex = 0;
             cbGroup.SelectedIndex = 0;
             userGrid.DataContext = currentUser;
-            currentUser = new User();
         }
 
         public AddUserWindow(User user)
@@ -80,6 +80,8 @@ namespace eCollege
 
             if (!isUserCreated)
             {
+                currentUser.RegDate = DateTime.Now;
+                currentUser.LoginDate = DateTime.Now;
                 if (currentUser.TypeId == 1)
                 {
                     Student newStudent = new Student();
@@ -110,8 +112,10 @@ namespace eCollege
 
 
 
-            Entities.GetContext().SaveChangesAsync();
-            MessageBox.Show("Пользователь добавлен");
+            Entities.GetContext().SaveChanges();
+            MessageBox.Show("Пользователь сохранен");
+            this.DialogResult = true;
+            this.Close();
         }
 
         private void cbUserType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -121,6 +125,23 @@ namespace eCollege
                 cbGroup.Visibility = Visibility.Visible;
             }
             else cbGroup.Visibility = Visibility.Collapsed;
+        }
+
+        private void RemoveBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentUser.TypeId == 1) 
+            {
+                Entities.GetContext().Student.Remove(currentUser.Student.Single());
+            }
+            else if (currentUser.TypeId == 2)
+            {
+                Entities.GetContext().Teacher.Remove(currentUser.Teacher.Single());
+            }
+            Entities.GetContext().User.Remove(currentUser);
+            Entities.GetContext().SaveChanges();
+            this.DialogResult = true;
+            MessageBox.Show("Пользователь удален");
+            this.Close();
         }
     }
 }

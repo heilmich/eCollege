@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
+        Icon="logo.png"
         Title="Добавить пользователя" MinHeight="600" MinWidth="500" Height="600" Width="500" Background="#FF52C1FF">
     <Grid x:Name="userGrid">
         <Grid.ColumnDefinitions>
@@ -72,7 +73,7 @@
                 </WrapPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
                     <Button x:Name="SaveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Сохранить" Click="SaveBTN_Click"></Button>
-                    <Button x:Name="RemoveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить" Margin="20,0,0,0"></Button>
+                    <Button x:Name="RemoveBTN" VerticalAlignment="Center" Width="100" Style="{DynamicResource ButtonStyle1}" Content="Удалить" Click="RemoveBTN_Click" Margin="20,0,0,0"></Button>
                 </StackPanel>
             </StackPanel>
         </Border>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
+        Icon="logo.png"
         Title="Добавить занятие" Height="500" Width="400" Background="#FF52C1FF">
     <Window.Resources>
         <Style x:Key="Link" TargetType="Label">
@@ -88,8 +89,11 @@
                     <TextBlock Text="Очередь в расписании"/>
                     <TextBox Text="{Binding OrderInShedule, Mode=TwoWay}" MinWidth="22" Margin="12,0,0,0"></TextBox>
                 </StackPanel>
-                
-                <Label Content="Сохранить" Name="lbAdd" Style="{StaticResource Link}" VerticalAlignment="Bottom" Margin="0,22,0,0" MouseLeftButtonUp="Click_lbAdd"/>
+
+                <StackPanel Orientation="Horizontal"  Margin="0,22,0,0" VerticalAlignment="Bottom">
+                    <Button Content="Сохранить" Name="AddBTN" Style="{StaticResource ButtonStyle1}" Click="AddBTN_Click"/>
+                    <Button Content="Удалить" Name="RemoveBTN" Style="{StaticResource ButtonStyle1}" Click="RemoveBTN_Click" Margin="20,0,0,0"/>
+                </StackPanel>
             
             </StackPanel>
         </Border>

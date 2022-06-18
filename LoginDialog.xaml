@@ -6,6 +6,7 @@
         xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
         xmlns:local="clr-namespace:eCollege"
         mc:Ignorable="d"
+        Icon="logo.png"
         Title="Вход в систему" MinHeight="400" MinWidth="500" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">

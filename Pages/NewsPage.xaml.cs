@@ -21,11 +21,12 @@ namespace eCollege
     /// </summary>
     public partial class NewsPage : Page
     {
-        public ObservableCollection<News> newsList = new ObservableCollection<News>();
+        public ObservableCollection<News> newsList;
         public NewsPage()
         {
             InitializeComponent();
-            SetNewsListView();
+            GetNews();
+            NewsLB.ItemsSource = newsList;
             if (MainWindow.currentUser.UserType.Id == 3) 
             {
                 AddNewsBTN.Visibility = Visibility.Visible;
@@ -33,10 +34,6 @@ namespace eCollege
             }
         }
 
-        public void SetNewsListView() 
-        {
-            NewsLB.ItemsSource = GetNews();
-        }
 
         public ObservableCollection<News> GetNews() 
         {
@@ -47,14 +44,14 @@ namespace eCollege
         private void AddNews_Click(object sender, RoutedEventArgs e)
         {
             NewsItemWindow newsItemWindow = new NewsItemWindow();
-            newsItemWindow.Show();
+            if (newsItemWindow.ShowDialog() == true) GetNews();
         }
 
         private void EditNews_Click(object sender, RoutedEventArgs e)
         {
             if (NewsLB.SelectedItem == null) return;
             NewsItemWindow newsItemWindow = new NewsItemWindow(NewsLB.SelectedItem as News);
-            newsItemWindow.Show();
+            if (newsItemWindow.ShowDialog() == true) GetNews();
         }
     }
 }

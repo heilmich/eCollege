@@ -21,13 +21,13 @@
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="50"/>
             <RowDefinition />
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <StackPanel Height="30" Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
-            <Button Visibility="Collapsed" Style="{DynamicResource ButtonStyle1}" x:Name="AddNewsBTN" Click="AddNews_Click" Content="Добавить новость"/>
-            <Button Visibility="Collapsed" Style="{DynamicResource ButtonStyle1}" Margin="20,0,0,0" x:Name="EditNewsBTN" Click="EditNews_Click" Content="Редактировать новость"/>
+        <StackPanel VerticalAlignment="Center" Height="36" Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <Button Visibility="Collapsed" Style="{DynamicResource ButtonStyle1}" Height="35" x:Name="AddNewsBTN" Click="AddNews_Click" Content="Добавить новость"/>
+            <Button Visibility="Collapsed" Style="{DynamicResource ButtonStyle1}" Height="35" Margin="20,0,0,0" x:Name="EditNewsBTN" Click="EditNews_Click" Content="Редактировать новость"/>
         </StackPanel>
         <ListView SelectionMode="Single" Padding="20,20" x:Name="NewsLB" Grid.Row="1" Grid.Column="1" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>

@@ -71,11 +71,9 @@ namespace eCollege
             try 
             {
                 string picstr = Image.SerializeFromDialog();
-
-                Entities.GetContext().User.Find(MainWindow.currentUser.Id).Image = picstr;
+                MainWindow.currentUser.Image = picstr;
                 Entities.GetContext().SaveChanges();
-
-                MainWindow.UpdateUser(MainWindow.currentUser.Id);
+                lkGrid.DataContext = new User();
                 lkGrid.DataContext = MainWindow.currentUser;
                 MessageBox.Show("Изображение изменено");
             }

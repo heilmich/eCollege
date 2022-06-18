@@ -4,34 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f9a90cb6f7a64f708c3510fa23363acf" Name="Diagram1" ZoomLevel="65">
-        <EntityTypeShape EntityType="ecollegeModel.Group" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Lesson" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Mark" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Message" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Specialty" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Student" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Subject" Width="1.5" PointX="7.5" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.Teacher" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.User" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="ecollegeModel.UserType" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <AssociationConnector Association="ecollegeModel.FK_Group_Specialty" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Group_Teacher" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Lesson_Group" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Student_Group" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Lesson_Subject" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Lesson_Teacher" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Mark_Lesson" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Mark_Student" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Message_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Message_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Student_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_Teacher_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ecollegeModel.FK_User_UserType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ecollegeModel.News" Width="1.5" PointX="7" PointY="0.5" />
-        <EntityTypeShape EntityType="ecollegeModel.NewsPhoto" Width="1.5" PointX="9.25" PointY="2.75" />
-        <AssociationConnector Association="ecollegeModel.FK_News_User" />
-        <AssociationConnector Association="ecollegeModel.FK_NewsPhoto_News" />
+      <Diagram DiagramId="15d4b10cf81d41fb8437b5d4cb0d5a2f" Name="Diagram1">
+        <EntityTypeShape EntityType="eCollegeModel.Group" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Lesson" Width="1.5" PointX="9.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Mark" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Message" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.News" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.NewsPhoto" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Specialty" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Student" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Subject" Width="1.5" PointX="7.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.Teacher" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.User" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="eCollegeModel.UserType" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="eCollegeModel.FK_Group_Specialty" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Group_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Lesson_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Student_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Lesson_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Lesson_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Mark_Lesson" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Mark_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Message_User" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Message_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_News_User" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_NewsPhoto_News" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Student_User" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_Teacher_User" ManuallyRouted="false" />
+        <AssociationConnector Association="eCollegeModel.FK_User_UserType" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
