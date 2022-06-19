@@ -52,7 +52,7 @@
                     <DataGridTextColumn HeaderStyle="{StaticResource DGColumnHeaderStyle}" MinWidth="150" Header="Итоговая оценка" Binding="{Binding Marks, Converter={StaticResource FinalMarksConverter}}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Style="{DynamicResource ButtonStyle1}" Click="CreateDocument" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Right" Content="Конвертировать в PDF" Height="30"></Button>
+            <Button Style="{DynamicResource ButtonStyle1}" Click="CreateDocumentBTN" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Right" Content="Конвертировать в PDF" Height="30"></Button>
         </Grid>
     </Border>
 </Page>

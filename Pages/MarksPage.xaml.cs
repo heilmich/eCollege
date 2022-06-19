@@ -82,11 +82,15 @@ namespace eCollege
             }
         }
 
-        public void CreateDocument(object sender, RoutedEventArgs e) 
+        public void CreateDocumentBTN(object sender, RoutedEventArgs e) 
+        {
+            CreateDocument(startDay, endDay);
+        }
+
+        public void CreateDocument(DateTime startDay, DateTime endDay) 
         {
             document = new Document();
 
-            
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "PDF files (*.pdf)|*.pdf;";
@@ -101,7 +105,18 @@ namespace eCollege
 
                 BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                 iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, iTextSharp.text.Font.DEFAULTSIZE, iTextSharp.text.Font.NORMAL);
-                
+
+                // Информация о студенте
+
+                document.Add(new Phrase($"Студент\n", font));
+                document.Add(new Phrase($"Фамилия: {MainWindow.currentStudent.User.LastName}\n", font));
+                document.Add(new Phrase($"Имя: {MainWindow.currentStudent.User.FirstName}\n", font));
+                document.Add(new Phrase($"Отчество: {MainWindow.currentStudent.User.Patronymic}\n", font));
+                document.Add(new Phrase($"Группа: {MainWindow.currentStudent.Group.Name}\n", font));
+                document.Add(new Phrase($"Период: {startDay} - {endDay}\n", font));
+
+
+                // Таблица с оценками
                 PdfPTable marksTable = new PdfPTable(4);
 
                 PdfPCell subjectHeader = new PdfPCell(new Phrase("Предмет", font));
@@ -117,18 +132,22 @@ namespace eCollege
                 {
                     PdfPCell subject = new PdfPCell(new Phrase(item.Title, font));
                     marksTable.AddCell(subject);
-                    
-                    var marksList = new ObservableCollection<Mark>(MainWindow.currentStudent.Mark.Where(p => p.Lesson.Subject == item));
+
+                    var marksList = new ObservableCollection<Mark>(MainWindow.currentStudent.Mark
+                        .Where(p => p.Lesson.Subject == item)
+                        .Where(p => p.Lesson.Date >= startDay && p.Lesson.Date <= endDay));
+                        
                     var marksPhrase = new Phrase("", font);
                     foreach (var m in marksList) 
                     {
                         if (m.Mark1 != 0)
                         marksPhrase.Add(m.Mark1 + " ");
                     }
+
                     PdfPCell mark = new PdfPCell(marksPhrase);
                     marksTable.AddCell(mark);
 
-                    string avg = Convert.ToString(marksList.Where(p => p.Mark1 >= 1).Average(p => p.Mark1));
+                    string avg = Convert.ToString(Math.Round(marksList.Where(p => p.Mark1 >= 1).Average(p => p.Mark1), 2));
                     PdfPCell avgMark = new PdfPCell(new Phrase("" + avg, font));
                     marksTable.AddCell(avgMark);
 

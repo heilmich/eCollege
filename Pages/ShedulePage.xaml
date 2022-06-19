@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:eCollege"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="540" d:DesignWidth="800"
       Title="Расписание"
       FontSize="14" >
     <Page.Resources>
@@ -33,7 +33,7 @@
         <local:HomeTaskConverter x:Key="HomeTaskConverter"/>
         <local:TeacherFIOConverter x:Key="TeacherFIOConverter"/>
     </Page.Resources>
-    <Border BorderBrush="Gray" BorderThickness="0.8,0,0.8,0.8" VerticalAlignment="Top" MinHeight="500">
+    <Border BorderBrush="Gray" BorderThickness="0.8,0,0.8,0.8" VerticalAlignment="Top" MinHeight="540">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.75"/>
         </Border.Effect>
@@ -46,7 +46,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Padding="5,0" Height="28" BorderBrush="{x:Null}" Content="Предыдущая неделя" Style="{DynamicResource ButtonStyle1}"  Click="Click_PreviousWeek" />
@@ -132,6 +132,7 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button x:Name="AddLessonBTN" Padding="5,0" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="28" BorderBrush="{x:Null}" Margin="10,0,0,0" Content="Добавить занятие" Style="{DynamicResource ButtonStyle1}" Click="AddLessonBTN_Click" />
         </Grid>
     </Border>
 </Page>

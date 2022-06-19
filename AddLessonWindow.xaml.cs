@@ -27,6 +27,22 @@ namespace eCollege
         public ShedulePage shedulePage;
 
         // Создание окна для нового урока
+        public AddLessonWindow(ShedulePage shedulePage)
+        {
+            InitializeComponent();
+
+            currentLesson = new Lesson();
+            DateDP.SelectedDate = DateTime.Now;
+            currentLesson.Date = DateTime.Now;
+
+            currentLesson.OrderInShedule = 1;
+            this.shedulePage = shedulePage;
+            this.DataContext = currentLesson;
+            //this.DialogResult = false;
+            GetData();
+        }
+
+        // Создание окна для нового урока
         public AddLessonWindow(SchoolDay schoolDay, ShedulePage shedulePage)
         {
             InitializeComponent();

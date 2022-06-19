@@ -171,5 +171,11 @@ namespace eCollege
             Entities.GetContext().SaveChanges();
             MessageBox.Show($"Обновлено {lesson.Id} + {hometask}");
         }
+
+        private void AddLessonBTN_Click(object sender, RoutedEventArgs e)
+        {
+            AddLessonWindow addLessonWindow = new AddLessonWindow(this);
+            if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+        }
     }
 }
