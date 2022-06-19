@@ -158,7 +158,7 @@ namespace eCollege
                 }
 
                 document.Add(marksTable);
-                document.Add(new Phrase("Лооол"));
+                
                 document.Close();
                 
                 writer.Close();

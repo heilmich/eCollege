@@ -146,10 +146,18 @@ namespace eCollege
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {
-            var user = (User)value;
-            if (user.TypeId == 1) return user.Student.First().Group.Name;
-            else if (user.TypeId == 2) return user.Teacher.First().Group.First().Name;
-            return null;
+            try 
+            {
+                var user = (User)value;
+                if (user.TypeId == 1) return user.Student.First().Group.Name;
+                else if (user.TypeId == 2) return user.Teacher.First().Group.First().Name;
+                return null;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Ошибка!\n" + ex.Message + "\nОбратитесь к системному администратору.");
+                return null;
+            }
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo cultureInfo)
         {

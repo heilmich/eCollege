@@ -42,33 +42,15 @@ namespace eCollege
             GetData();
         }
 
-        // Создание окна для нового урока
-        public AddLessonWindow(SchoolDay schoolDay, ShedulePage shedulePage)
-        {
-            InitializeComponent();
-
-            currentLesson = new Lesson();
-            DateDP.SelectedDate = schoolDay.Date;
-            currentLesson.Date = schoolDay.Date;
-            
-            currentLesson.OrderInShedule = 1;
-            this.shedulePage = shedulePage;
-            this.DataContext = currentLesson;
-            //this.DialogResult = false;
-            GetData();
-        }
+        
 
         // Создание окна для существующего урока
         public AddLessonWindow(Lesson lesson, ShedulePage shedulePage)
         {
             InitializeComponent();
-            try 
-            {
-                cbSubject.SelectedItem = lesson.Subject;
-            }
-            catch (Exception ex) 
-            {
-            }
+            cbSubject.SelectedItem = lesson.Subject;
+            cbTeacher.SelectedItem = lesson.Teacher;
+            cbGroup.SelectedItem = lesson.Group;
             currentLesson = lesson;
             this.DataContext = currentLesson;
             this.shedulePage = shedulePage;
@@ -88,8 +70,7 @@ namespace eCollege
         // Добавление (обновление) занятия в базу данных
         private void AddBTN_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            
                 currentLesson.TeacherId = selectedTeacher.Id;
                 currentLesson.GroupId = selectedGroup.Id;
                 currentLesson.SubjectId = selectedSubject.Id;
@@ -121,10 +102,7 @@ namespace eCollege
                 this.DialogResult = true;
                 this.Close();
 
-            } catch (Exception ex) 
-            {
-                MessageBox.Show("Произошла ошибка! \nКод ошибки: " + ex.Message);
-            }
+            
         }
 
         private void SelectionChanged_cbGroup(object sender, SelectionChangedEventArgs e)
@@ -144,13 +122,14 @@ namespace eCollege
 
         private void RemoveBTN_Click(object sender, RoutedEventArgs e)
         {
-            var marks = Entities.GetContext().Mark.Where( p => p.Lesson == currentLesson);
-            foreach (var item in marks) 
-            {
-                Entities.GetContext().Mark.Remove(item);
-            }
+
+            Entities.GetContext().Mark.RemoveRange(currentLesson.Mark);    
             Entities.GetContext().Lesson.Remove(currentLesson);
             Entities.GetContext().SaveChanges();
+            MessageBox.Show("Урок удален");
+            this.DialogResult = true;
+            this.Close();
+            
         }
     }
 }

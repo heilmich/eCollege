@@ -65,7 +65,6 @@ namespace eCollege
             if (currentUser.TypeId == 3)
             {
                 tbMarks.Visibility = Visibility.Collapsed;
-                imgMessage.Visibility = Visibility.Collapsed;
                 tbUsers.Visibility = Visibility.Visible;
             }
 

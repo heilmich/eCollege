@@ -21,43 +21,74 @@ namespace eCollege
     /// </summary>
     public partial class MessengerPage : Page
     {
+        public ObservableCollection<User> listUsers;
         public ObservableCollection<Student> listStudents;
         public ObservableCollection<Teacher> listTeachers;
         public User selectedUser = null;
+        public ObservableCollection<Message> listMessages;
 
         public MessengerPage()
         {
             InitializeComponent();
+            listUsers = new ObservableCollection<User>();
+            listMessages = new ObservableCollection<Message>();
+            lvMessages.ItemsSource = listMessages;
+            lvUsers.ItemsSource = listUsers;
             GetUsers();
         }
 
         public void Update() 
         {
-            lvMessages.ItemsSource = GetMessages(); 
+            GetMessages();
             
         }
         public void GetUsers() 
         {
-            if (MainWindow.currentUser.TypeId == 1) lvUsers.ItemsSource = GetTeachers();
-            else                                    lvUsers.ItemsSource = GetStudents();
+            listUsers.Clear();
+            if (MainWindow.currentUser.TypeId == 1) 
+                foreach (var item in (GetTeachers()))
+                {
+                    listUsers.Add(item);
+                }
+            else if (MainWindow.currentUser.TypeId == 2)
+                foreach (var item in (GetStudents()))
+                {
+                    listUsers.Add(item);
+                }
+            else if (MainWindow.currentUser.TypeId == 3)
+            {
+                foreach (var item in (GetTeachers()))
+                {
+                    listUsers.Add(item);
+                }
+                foreach (var item in (GetStudents())) 
+                {
+                    listUsers.Add(item);
+                }
+            }
         }
 
-        public List<Message> GetMessages() 
+        public void GetMessages() 
         {
-            return (Entities.GetContext().Message
+            listMessages.Clear();
+            var list = new ObservableCollection<Message> (Entities.GetContext().Message
                             .Where(p => p.SenderId == MainWindow.currentUser.Id && p.RecieverId == selectedUser.Id 
                             || p.SenderId == selectedUser.Id && p.RecieverId == MainWindow.currentUser.Id)
                             .OrderBy(p => p.Date).ToList());
+            foreach(var item in list) 
+            {
+                listMessages.Add(item);
+            }
         }
 
-        public ObservableCollection<Student> GetStudents() 
+        public ObservableCollection<User> GetStudents() 
         {
-            return new ObservableCollection<Student>( Entities.GetContext().Student);
+            return new ObservableCollection<User>( Entities.GetContext().User.Where( p => p.UserType.Id == 1).ToList());
         }
 
-        public ObservableCollection<Teacher> GetTeachers()
+        public ObservableCollection<User> GetTeachers()
         {
-            return new ObservableCollection<Teacher>(Entities.GetContext().Teacher);
+            return new ObservableCollection<User>(Entities.GetContext().User.Where(p => p.UserType.Id == 2).ToList());
         }
 
         private void Click_btnSend(object sender, RoutedEventArgs e)
@@ -70,8 +101,7 @@ namespace eCollege
                 msg.Date = DateTime.Now;
                 msg.SenderId = MainWindow.currentUser.Id;
                 msg.IsReaded = false;
-                if (MainWindow.currentUser.TypeId == 1) msg.RecieverId = ((Teacher)lvUsers.SelectedItem).User.Id;
-                else msg.RecieverId = ((Student)lvUsers.SelectedItem).User.Id;
+                msg.RecieverId = ((User)lvUsers.SelectedItem).Id;
 
                 Entities.GetContext().Message.Add(msg);
                 Entities.GetContext().SaveChanges();
@@ -87,9 +117,7 @@ namespace eCollege
         private void SelectionChanged_lvUsers(object sender, SelectionChangedEventArgs e)
         {
             btnSend.IsEnabled = true;
-            if (MainWindow.currentUser.TypeId == 1)
-            selectedUser = ((Teacher)lvUsers.SelectedItem).User;
-            else selectedUser = ((Student)lvUsers.SelectedItem).User;
+            selectedUser = ((User)lvUsers.SelectedItem);
             Update();
         }
     }

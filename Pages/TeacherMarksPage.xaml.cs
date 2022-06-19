@@ -70,12 +70,7 @@ namespace eCollege
 
         public void GetDataMarks() 
         {
-            
-            if (startDay > endDay)
-            {
-                MessageBox.Show("Дата начала позднее даты конца");
-                return;
-            }
+           
 
             if (currentStudent == null || currentGroup == null || currentSubject == null) return;
 

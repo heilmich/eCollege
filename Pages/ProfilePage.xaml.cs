@@ -71,6 +71,7 @@ namespace eCollege
             try 
             {
                 string picstr = Image.SerializeFromDialog();
+                if (picstr == null) return;
                 MainWindow.currentUser.Image = picstr;
                 Entities.GetContext().SaveChanges();
                 lkGrid.DataContext = new User();

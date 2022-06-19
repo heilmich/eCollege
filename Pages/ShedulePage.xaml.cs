@@ -24,6 +24,8 @@ namespace eCollege
     public partial class ShedulePage : Page
     {
         public ObservableCollection<SchoolDay> dayList = new ObservableCollection<SchoolDay>();
+        public Group currentGroup;
+        public ObservableCollection<Lesson> listLesson;
         public int lessonsPerDay = 8;
         public DateTime startDay = DateTime.Today;
         public DateTime endDay;
@@ -33,18 +35,28 @@ namespace eCollege
         {
             InitializeComponent();
             SetWeek();
-            UpdateShedule();
+            listLesson = new ObservableCollection<Lesson>();
             mainSheduleGrid.ItemsSource = dayList;
-            if (MainWindow.currentUser.TypeId == 2)
+            if (MainWindow.currentUser.TypeId == 1)
             {
+                currentGroup = MainWindow.currentUser.Student.First().Group;
+            }
+            else if (MainWindow.currentUser.TypeId == 2)
+            {
+                currentGroup = MainWindow.currentUser.Teacher.First().Group.First();
                 dgMark.Visibility = Visibility.Collapsed;
                 dgHomeTask.IsReadOnly = false;
+                
             }
             else if (MainWindow.currentUser.TypeId == 3)
             {
+                AddLessonBTN.Visibility = Visibility.Visible;
+                
+                dgMark.Visibility = Visibility.Collapsed;
                 dgLessons.IsReadOnly = false;
                 GetGroups_cbGroup();
             }
+            UpdateShedule();
         }
 
 
@@ -68,12 +80,24 @@ namespace eCollege
 
         public void UpdateShedule()
         {
+            var listLessonsTemp = currentGroup.Lesson.ToList();
+            if (MainWindow.currentUser.UserType.Id == 2) 
+            {
+                listLessonsTemp = MainWindow.currentUser.Teacher.First().Lesson.ToList();
+            }
+            listLesson.Clear();
+
+            foreach (var item in listLessonsTemp)
+            {
+                listLesson.Add(item);
+            }
+
             dayList.Clear();
             for (DateTime i = startDay; i.DayOfYear < endDay.DayOfYear; i = i.AddDays(1))
             {
                 SchoolDay day = new SchoolDay();
 
-                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(MainWindow.lessonsList.Where(p => p.Date.DayOfYear == i.DayOfYear).OrderBy(p => p.OrderInShedule));
+                ObservableCollection<Lesson> list = new ObservableCollection<Lesson>(listLesson.Where(p => p.Date.DayOfYear == i.DayOfYear).OrderBy(p => p.OrderInShedule));
 
                 ObservableCollection<Mark> listMark = new ObservableCollection<Mark>();
                 foreach (var item in list)
@@ -113,48 +137,51 @@ namespace eCollege
 
         private void SelectionChanged_cbGroup(object sender, SelectionChangedEventArgs e)
         {
-            var group = (Group)cbGroup.SelectedItem;
-            MainWindow.lessonsList = group.Lesson.ToList();
+            currentGroup = (Group)cbGroup.SelectedItem;
+           
             UpdateShedule();
         }
 
 
         private void dgLessons_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            if (MainWindow.currentUser.TypeId != 3) return;
+            
 
-            var item = ((DataGrid)sender).SelectedItem;
-            var sheditem = (SchoolDay)mainSheduleGrid.SelectedItem;
+                if (MainWindow.currentUser.TypeId != 3) return;
 
-            if (item != null && item.GetType() == typeof(Lesson) && ((Lesson)item).Id > 0)
-            {
-                AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem, this);
-                if (addLessonWindow.ShowDialog() == true) UpdateShedule();
-            }
-            else if (item != null && sheditem.GetType() == typeof(SchoolDay))
-            {
-                AddLessonWindow addLessonWindow = new AddLessonWindow((SchoolDay)mainSheduleGrid.SelectedItem, this);
-                if (addLessonWindow.ShowDialog() == true) UpdateShedule();
-            }
+                var item = (Lesson)((DataGrid)sender).SelectedItem;
+                var sheditem = (SchoolDay)mainSheduleGrid.SelectedItem;
+
+                if (item != null)
+                {
+                    AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem, this);
+                    if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+                }
+                /*else if (item != null && sheditem.GetType() == typeof(SchoolDay))
+                {
+                    AddLessonWindow addLessonWindow = new AddLessonWindow((SchoolDay)mainSheduleGrid.SelectedItem, this);
+                    if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+                }*/
+            
         }
 
         private void dgLessons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainWindow.currentUser.TypeId != 3) return;
 
-            var item = ((DataGrid)sender).SelectedItem;
+            var item = (Lesson)((DataGrid)sender).SelectedItem;
 
 
-            if (item != null && item.GetType() == typeof(Lesson))
+            if (item != null)
             {
                 AddLessonWindow addLessonWindow = new AddLessonWindow((Lesson)((DataGrid)sender).SelectedItem, this);
                 if (addLessonWindow.ShowDialog() == true) UpdateShedule();
             }
-            else if (item != null && item.GetType() == typeof(SchoolDay))
+            /*else if (item != null && item.GetType() == typeof(SchoolDay))
             {
                 AddLessonWindow addLessonWindow = new AddLessonWindow((SchoolDay)mainSheduleGrid.SelectedItem, this);
                 if (addLessonWindow.ShowDialog() == true) UpdateShedule();
-            }
+            }*/
         }
 
         private void dgHomeTask_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -176,6 +203,21 @@ namespace eCollege
         {
             AddLessonWindow addLessonWindow = new AddLessonWindow(this);
             if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+        }
+
+        private void EditLessonBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.currentUser.TypeId != 3) return;
+
+            //var item = ((DataGrid)sender).SelectedItem;
+            var sheditem = (SchoolDay)mainSheduleGrid.SelectedItem;
+
+            
+            if (sheditem != null && sheditem.GetType() == typeof(SchoolDay))
+            {
+                //AddLessonWindow addLessonWindow = new AddLessonWindow((SchoolDay)mainSheduleGrid.SelectedItem, this);
+                //if (addLessonWindow.ShowDialog() == true) UpdateShedule();
+            }
         }
     }
 }
